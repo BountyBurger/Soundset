@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soundset - Database Settings</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.webp') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script src="{{ url_for('static', filename='js/all.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</head>
+
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="d-flex mb-4 align-items-center">
+            <a href="/" class="btn btn-outline-secondary me-3">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1 class="mb-0">Database Settings</h1>
+        </div>
+
+        <div class="row g-4">
+            <!-- Metadata Section -->
+            <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Database Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="db_title" class="form-label">Database Title</label>
+                            <input type="text" class="form-control" id="db_title" placeholder="Enter title...">
+                        </div>
+                        <div class="mb-3">
+                            <label for="db_description" class="form-label">Description</label>
+                            <textarea class="form-control" id="db_description" rows="4"
+                                placeholder="Enter description..."></textarea>
+                        </div>
+                        <button id="save_info_btn" class="btn btn-primary w-100">
+                            <i class="fas fa-save me-2"></i>Save Information
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Import/Export Section -->
+            <div class="col-md-6">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0"><i class="fas fa-exchange-alt me-2"></i>Backup & Restore</h5>
+                    </div>
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <p class="text-muted small mb-4">
+                                Export your entire database as a JSON file. This includes all artists, tags, and sets.
+                                <br><strong>Note:</strong> Database credentials (password) are not included in the
+                                export.
+                            </p>
+                            <button id="export_db_btn" class="btn btn-outline-dark w-100 mb-4">
+                                <i class="fas fa-download me-2"></i>Export database (JSON)
+                            </button>
+                        </div>
+
+                        <hr>
+
+                        <div>
+                            <p class="text-muted small mb-3">
+                                Import a previously exported JSON database.
+                                <br><span class="text-danger"><i class="fas fa-exclamation-triangle me-1"></i>This will
+                                    overwrite all current data!</span>
+                            </p>
+                            <div class="mb-3">
+                                <input class="form-control" type="file" id="import_file" accept=".json">
+                            </div>
+                            <button id="import_db_btn" class="btn btn-danger w-100">
+                                <i class="fas fa-upload me-2"></i>Import database
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Warning Modal -->
+    <div id="confirm_import_modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content border-danger">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">⚠️ Dangerous Action</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to import this database? <strong>This will completely overwrite all your
+                            current data</strong> (artists, sets, tags).</p>
+                    <p>This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="confirm_import_btn" type="button" class="btn btn-danger">Yes, overwrite
+                        everything</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast for notifications -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="status_toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto" id="toast_title">Notification</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toast_body"></div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/database.js') }}"></script>
+</body>
+
+</html>

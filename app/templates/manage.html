@@ -1,0 +1,71 @@
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soundset - Manage</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.webp') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/manage_style.css') }}">
+
+
+    <script src="{{ url_for('static', filename='js/all.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</head>
+
+<body class="bg-dark">
+    <datalist id="artists_datalist"></datalist>
+    <datalist id="tags_datalist"></datalist>
+
+    <div class="d-flex justify-content-between bg-light p-2 rounded-bottom-1 align-items-center">
+        <a href="{{ url_for('index') }}" class="p-2 me-3 ms-2">
+            <i class="fa-solid fa-arrow-left fa-xl"></i>
+        </a>
+        <ul role="tablist" class="nav nav-pills nav-fill w-100">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#artists-tab-pane"
+                    type="button" role="tab">Artists</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#tags-tab-pane"
+                    type="button" role="tab">Tags</button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content pt-2">
+        <div class="tab-pane fade show active" id="artists-tab-pane" role="tabpanel" tabindex="0">
+            <div class="input-group p-2">
+                <input type="text" class="form-control" id="artist_input" list="artists_datalist"
+                    placeholder="Add an artist">
+                <button class="btn btn-success" id="add_artist_btn">Add</button>
+            </div>
+            <div class="input-group p-2">
+                <input type="text" class="form-control" id="artist_search_input" placeholder="Search an artist">
+                <button class="btn btn-primary" id="search_artist_btn">Search</button>
+            </div>
+            <div id="artist_list" class="p-2 list-group"></div>
+        </div>
+        <div class="tab-pane fade" id="tags-tab-pane" role="tabpanel" tabindex="0">
+            <div class="input-group p-2">
+                <input type="text" class="form-control" id="tag_input" list="tags_datalist" placeholder="Add a tag">
+                <button class="btn btn-success" id="add_tag_btn">Add</button>
+            </div>
+            <div class="input-group p-2">
+                <input type="text" class="form-control" id="tag_search_input" placeholder="Search a tag">
+                <button class="btn btn-primary" id="search_tag_btn">Search</button>
+            </div>
+            <div id="tag_list" class="p-2 list-group"></div>
+        </div>
+    </div>
+
+
+
+</body>
+<script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+<script src="{{ url_for('static', filename='js/manage.js') }}"></script>
+
+</html>

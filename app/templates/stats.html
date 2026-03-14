@@ -1,0 +1,127 @@
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soundset - Stats</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.webp') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+
+
+    <script src="{{ url_for('static', filename='js/all.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <style>
+        #rated_pie_chart {
+            height: 300px;
+            width: 300px;
+        }
+
+        #rating_repartition_chart {
+            height: 300px;
+            width: 300px;
+        }
+
+        #top10_artists_chart {
+            height: 500px;
+            width: 100%;
+        }
+
+        #top10_genres_chart {
+            height: 500px;
+            width: 100%;
+        }
+
+        #time_inserted_chart {
+            height: 350px;
+            width: 100%;
+        }
+
+        #time_released_chart {
+            height: 350px;
+            width: 100%;
+        }
+
+        #platforms_repartition_chart {
+            height: 250px;
+            width: 100%;
+        }
+
+        #crowd_level_repartition_chart,
+        #audio_quality_repartition_chart,
+        #artist_talking_repartition_chart {
+            height: 350px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="d-flex justify-content-between bg-dark p-2 rounded-bottom-1 align-items-center">
+        <a href="{{ url_for('index') }}" class="p-2 me-3 ms-2">
+            <i class="fa-solid fa-arrow-left fa-xl"></i>
+        </a>
+    </div>
+    <div id="stats_container" class="d-flex flex-column p-2">
+
+        <div id="counters_chart" class="card-group">
+            <div class="shadow-sm card bg-gradient text-center" style="background-color: #f94144;">
+                <div class="card-body">
+                    <h5 class="card-title">Sets</h5>
+                    <p id="total_set_card" class="card-text"></p>
+                </div>
+            </div>
+            <div class="shadow-sm card bg-gradient text-center" style="background-color: #43aa8b;">
+                <div class="card-body">
+                    <h5 class="card-title">Artists</h5>
+                    <p id="total_artist_card" class="card-text"></p>
+                </div>
+            </div>
+            <div class="shadow-sm card bg-gradient text-center" style="background-color: #277da1;">
+                <div class="card-body">
+                    <h5 class="card-title">Genres</h5>
+                    <p id="total_genre_card" class="card-text"></p>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="d-flex flex-column align-items-center">
+            <h4 class="fw-bold text-center">Rating distribution</h4>
+            <div class="d-flex flex-column align-items-center">
+                <div id="rated_pie_chart"></div>
+                <div id="rating_repartition_chart"></div>
+            </div>
+        </div>
+        <hr>
+        <div class="p-3" id="top10_artists_chart"></div>
+        <hr>
+        <div class="p-3" id="top10_genres_chart"></div>
+        <hr>
+        <div class="d-flex flex-column align-items-center">
+            <h4 class="fw-bold text-center">Time charts</h4>
+            <div class="row w-100">
+                <div class="col-md-6 p-3" id="time_inserted_chart"></div>
+                <div class="col-md-6 p-3" id="time_released_chart"></div>
+            </div>
+        </div>
+        <hr>
+        <div class="p-3" id="platforms_repartition_chart"></div>
+        <hr>
+        <div class="d-flex flex-column align-items-center">
+            <h4 class="fw-bold text-center">Details repartitions</h4>
+            <div class="row w-100">
+                <div class="col-md-4 p-3" id="crowd_level_repartition_chart"></div>
+                <div class="col-md-4 p-3" id="audio_quality_repartition_chart"></div>
+                <div class="col-md-4 p-3" id="artist_talking_repartition_chart"></div>
+            </div>
+        </div>
+        <hr>
+        <div class="p-3" id="top5_most_played_chart"></div>
+    </div>
+</body>
+<script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/stats.js') }}"></script>
+
+</html>

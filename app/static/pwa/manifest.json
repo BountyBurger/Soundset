@@ -1,0 +1,33 @@
+{
+    "name": "Soundset",
+    "lang": "fr",
+    "short_name": "Soundset",
+    "start_url": "/",
+    "display": "fullscreen",
+    "background_color": "#ffffff",
+    "theme_color": "#0d6efd",
+    "description": "Soundset Application",
+    "icons": [
+      {
+        "src": "../pwa/128.webp",
+        "sizes": "128x128",
+        "type": "image/webp"
+      },
+      {
+        "src": "../pwa/192.webp",
+        "sizes": "192x192",
+        "type": "image/webp"
+      },
+      {
+        "src": "../pwa/256.webp",
+        "sizes": "256x256",
+        "type": "image/webp"
+      },
+      {
+        "src": "../pwa/512.webp",
+        "sizes": "512x512",
+        "type": "image/webp"
+      }
+    ]
+  }
+  

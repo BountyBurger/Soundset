@@ -1,0 +1,464 @@
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soundset</title>
+    <link rel="icon" href="{{ url_for('static', filename='pwa/512.webp') }}">
+
+    <link rel="manifest" href="{{ url_for('static', filename='pwa/manifest.json') }}" crossorigin="use-credentials">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/star-rating.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/kj.css') }}">
+</head>
+<script>
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("{{ url_for('static', filename='pwa/sw.js') }}");
+    }
+</script>
+
+<body class="bg-light">
+
+    <datalist id="artists_datalist"></datalist>
+    <datalist id="tags_datalist"></datalist>
+
+    <!--modal add set-->
+    <div id="add_set" class="modal fade" tabindex="-1">
+        <div class="modal-xl modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!--Url-->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Url</span>
+                        <input id="add_set_url" type="text" class="form-control" placeholder="" autocomplete="off">
+                    </div>
+
+                    <!--Tags-->
+                    <!--todo-->
+
+                    <!--Rating-->
+                    <div class="d-flex justify-content-center p-2 mb-3">
+                        <div id="rating_div">
+                            <input id="add_set_rating" name="rating_input" class="rating rating-loading"
+                                data-show-clear="false" data-show-caption="false">
+                        </div>
+                    </div>
+
+                    <div>
+                        <!--Quality parameters-->
+                        <!--Record quality-->
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="add_set_record_quality">Record quality</label>
+                            <select class="form-select" id="add_set_record_quality">
+                                <option value="-1" selected>Choose...</option>
+                                <option value="2">Good</option>
+                                <option value="1">Ok</option>
+                                <option value="0">Bad</option>
+                            </select>
+                        </div>
+                        <!--Crowd level-->
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="add_set_crowd_level">Crowd level</label>
+                            <select class="form-select" id="add_set_crowd_level">
+                                <option value="-1" selected>Choose...</option>
+                                <option value="0">None</option>
+                                <option value="1">Light</option>
+                                <option value="2">Loud</option>
+                            </select>
+                        </div>
+                        <!--Artist talking-->
+                        <div class="input-group mb-3 align-items-center">
+                            <label class="input-group-text" for="inputGroupSelectArtistTalking">Artist talking</label>
+                            <div id="inputGroupSelectArtistTalking" class="form-check form-switch mx-3">
+                                <input class="form-check-input" type="checkbox" role="switch"
+                                    id="add_set_artist_talking">
+                                <label id="artist_talking_label" class="form-check-label" for="artist_talking"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="add_set-btn" type="button" class="btn btn-success">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--modal edit set-->
+    <div id="edit_set" class="modal fade" tabindex="-1">
+        <div class="modal-xl modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!--Thumbnail-->
+                    <div class="text-center mb-3 position-relative rounded-3 py-4" id="edit_set_thumbnail_div">
+                        <div id="edit_set_thumbnail_bg" class="position-absolute w-100 h-100 start-0 top-0"></div>
+                        <img id="edit_set_thumbnail" src="" class="img-fluid rounded-3 shadow-lg">
+                    </div>
+                    <!--Title-->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Title</span>
+                        <input id="edit_set_title" type="text" class="form-control" placeholder="">
+                    </div>
+
+                    <!--Artist-->
+                    <div class="border border-dark-subtle rounded-4 p-3 mb-3">
+                        <div class="input-group mb-3">
+                            <input id="edit_artist_input" type="text" class="form-control" placeholder="Artist"
+                                list="artists_datalist">
+                            <button class="btn btn-primary" type="button" id="edit_btn_add_artist">Add</button>
+                        </div>
+                        <div id="edit_artist_list" class="d-flex align-content-around flex-wrap"></div>
+                    </div>
+
+                    <!--Tags-->
+                    <div class="border border-dark-subtle rounded-4 p-3 mb-3">
+                        <div class="input-group mb-3">
+                            <input id="edit_tag_input" type="text" class="form-control" placeholder="Tag"
+                                list="tags_datalist">
+                            <button class="btn btn-primary" type="button" id="edit_btn_add_tag">Add</button>
+                        </div>
+                        <div id="edit_tag_list" class="d-flex align-content-around flex-wrap"></div>
+                    </div>
+
+                    <!--Rating-->
+                    <div class="d-flex justify-content-center p-2 mb-3">
+                        <div id="edit_rating_div">
+                            <div id="edit_rating_input" name="rating_input" class="rating rating-loading" hidden></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <!--Quality parameters-->
+                        <!--Record quality-->
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="edit_select_record_quality">Record quality</label>
+                            <select class="form-select" id="edit_select_record_quality">
+                                <option value="-1" selected>Choose...</option>
+                                <option value="2">Good</option>
+                                <option value="1">Ok</option>
+                                <option value="0">Bad</option>
+                            </select>
+                        </div>
+                        <!--Crowd level-->
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="edit_select_crowd_level">Crowd level</label>
+                            <select class="form-select" id="edit_select_crowd_level">
+                                <option value="-1" selected>Choose...</option>
+                                <option value="0">None</option>
+                                <option value="1">Light</option>
+                                <option value="2">Loud</option>
+                            </select>
+                        </div>
+                        <!--Artist talking-->
+                        <div class="input-group mb-3 align-items-center">
+                            <label for="inputGroupSelectArtistTalking">Artist talking</label>
+                            <div id="inputGroupSelectArtistTalking" class="form-check form-switch mx-3">
+                                <input class="form-check-input" type="checkbox" role="switch" id="edit_artist_talking">
+                                <label id="edit_artist_talking_label" class="form-check-label"
+                                    for="edit_artist_talking"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <!--Delete-->
+                    <button id="delete_set-btn" type="button" class="btn btn-danger">Delete</button>
+                    <!--Save-->
+                    <button id="save_edit_set" type="button" class="btn btn-success">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--modal info/error-->
+    <div id="info_modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="info_modal_title" class="modal-title">⚠️</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="info_modal_text"></div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="m-3 p-2 text-light bg-primary rounded-circle" id="btn_add_set">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus"
+            viewBox="0 0 16 16">
+            <path
+                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+        </svg>
+    </div>
+
+    <div id="loading-popup">
+        <div class="spinner-border text-warning" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div class="collapse bg-light" id="filters_section">
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div id="navbar-brand" class="navbar-brand">
+                    <img src="{{ url_for('static', filename='pwa/512.webp') }}" width="30" height="30"
+                        class="d-inline-block align-text-top">
+                    Soundset
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a href="/login" class="nav-link">Change database</a>
+                                <a href="/database" class="nav-link">Database settings</a>
+                                <a href="/manage" class="nav-link">Manage Artists & Tags</a>
+                                <a href="/stats" class="nav-link">Database analytics</a>
+                                <a href="/about" class="nav-link">About</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <button id="pwa_install_btn" class="btn" style="display: none;">
+                        <i class="fa-solid fa-cloud-arrow-down"></i> Install Soundset
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="p-3">
+            <div class="input-group form-floating">
+                <input id="title_search_input" class="form-control" placeholder="">
+                <label for="title_search_input">Keywords</label>
+                <div class="input-group-text">
+                    <i>Case sensitive </i><input class="form-check-input mt-0" type="checkbox" value="">
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column p-3 align-items-center">
+            <div>
+                <input id="rating_input" name="rating_input" class="rating rating-loading" data-show-clear="false"
+                    data-show-caption="false">
+            </div>
+            <div class="pt-3 form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="unrated_checkbox">
+                <label class="form-check-label" for="unrated_checkbox">Unrated</label>
+            </div>
+        </div>
+
+        <div class="pt-3">
+            <div class="d-flex justify-content-center h4 text-center">
+                <div>Duration :</div>
+                <div id="duration_label" class="ps-2">Any</div>
+            </div>
+            <span class="multi-range d-flex justify-content-center">
+                <input type="range" min="0" max="240" value="0" id="lower">
+                <input type="range" min="0" max="240" value="240" id="upper">
+            </span>
+        </div>
+
+        <div class="accordion accordion-flush" id="accordionExample">
+            <!--tags-->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="bg-light accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTags">
+                        Tags
+                    </button>
+                </h2>
+                <div id="collapseTags" class="accordion-collapse collapse">
+                    <div class="bg-light accordion-body">
+                        <div id="tags_list" class="d-flex align-content-around flex-wrap">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Artists-->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="bg-light accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseArtist">
+                        Artists
+                    </button>
+                </h2>
+                <div id="collapseArtist" class="accordion-collapse collapse">
+                    <div class="bg-light accordion-body">
+                        <div class="input-group mb-3">
+                            <input id="artist_input" type="text" class="form-control" placeholder="Artist"
+                                list="artists_datalist">
+                            <button class="btn btn-outline-secondary" type="button" id="btn_add_artist">Add</button>
+                        </div>
+                        <div id="artist_list" class="d-flex align-content-around flex-wrap">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Quality parameters-->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="bg-light accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseQuality">
+                        Quality
+                    </button>
+                </h2>
+                <div id="collapseQuality" class="accordion-collapse collapse">
+                    <div class="bg-light accordion-body">
+                        <div class="row">
+                            <div class="list-group col-6">
+                                <div class="h5 text-center">Record quality</div>
+                                <label class="list-group-item list-group-item-success">
+                                    <input id="good_record_quality_checkbox" class="form-check-input me-1"
+                                        type="checkbox" checked>
+                                    <i class=""></i> Good
+                                </label>
+                                <label class="list-group-item list-group-item-primary">
+                                    <input id="ok_record_quality_checkbox" class="form-check-input me-1" type="checkbox"
+                                        checked>
+                                    <i class=""></i> Ok
+                                </label>
+                                <label class="list-group-item list-group-item-danger">
+                                    <input id="bad_record_quality_checkbox" class="form-check-input me-1"
+                                        type="checkbox" checked>
+                                    <i class=""></i> Bad
+                                </label>
+                            </div>
+
+                            <div class="list-group col-6">
+                                <div class="h5 text-center">Crowd level</div>
+                                <label class="list-group-item list-group-item-success">
+                                    <input id="no_crowd_level_checkbox" class="form-check-input me-1" type="checkbox"
+                                        value="2" checked>
+                                    <i class=""></i> None
+                                </label>
+                                <label class="list-group-item list-group-item-primary">
+                                    <input id="light_crowd_level_checkbox" class="form-check-input me-1" type="checkbox"
+                                        value="1" checked>
+                                    <i class=""></i> Light
+                                </label>
+                                <label class="list-group-item list-group-item-danger">
+                                    <input id="loud_crowd_level_checkbox" class="form-check-input me-1" type="checkbox"
+                                        value="0" checked>
+                                    <i class=""></i> Loud
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mt-3 border-top border-dark-subtle border-2 d-flex justify-content-evenly">
+                            <div class="pt-4 m-0 h5 text-center">Artist talking</div>
+                            <div class="pt-4">
+                                <input id="artist_talking_checkbox" type="checkbox" class="btn-check" checked>
+                                <label class="btn btn-outline-primary" for="artist_talking_checkbox">Yes</label>
+
+                                <input id="artist_not_talking_checkbox" type="checkbox" class="btn-check" checked>
+                                <label class="btn btn-outline-primary" for="artist_not_talking_checkbox">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Platform type-->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="bg-light accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapsePlatform">
+                        Platform
+                    </button>
+                </h2>
+                <div id="collapsePlatform" class="accordion-collapse collapse">
+                    <div class="bg-light accordion-body">
+                        <div class="list-group">
+                            <label class="list-group-item">
+                                <input id="youtube_checkbox" class="pf form-check-input me-1" type="checkbox"
+                                    value="youtube" checked>
+                                <i class="fab fa-youtube"></i> Youtube
+                            </label>
+                            <label class="list-group-item">
+                                <input id="soundcloud_checkbox" class="pf form-check-input me-1" type="checkbox"
+                                    value="soundcloud" checked>
+                                <i class="fab fa-soundcloud"></i> Soundcloud
+                            </label>
+                            <!--<label class="list-group-item">
+                                <input id="other_checkbox" class="pf form-check-input me-1" type="checkbox"
+                                    value="other" disabled>
+                                <i class="fas fa-globe"></i> Other
+                            </label>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Order by-->
+        <div class="py-3">
+            <div class="h5 text-center">Order by</div>
+            <div class="d-flex justify-content-evenly">
+                <input type="radio" class="btn-check" name="orderby" id="order_by_date" autocomplete="off" checked>
+                <label class="btn btn-outline-dark" for="order_by_date">New <i class="fas fa-calendar-day"></i></label>
+
+                <input type="radio" class="btn-check" name="orderby" id="order_by_rating" autocomplete="off">
+                <label class="btn btn-outline-dark" for="order_by_rating">Rating <i class="fas fa-star"></i></label>
+
+                <input type="radio" class="btn-check" name="orderby" id="order_by_play_count" autocomplete="off">
+                <label class="btn btn-outline-dark" for="order_by_play_count">Play count <i
+                        class="fas fa-headphones"></i></label>
+
+                <input type="radio" class="btn-check" name="orderby" id="order_by_random" autocomplete="off">
+                <label class="btn btn-outline-dark" for="order_by_random">Random <i class="fas fa-random"></i></label>
+            </div>
+        </div>
+
+        <div id="search_btn" class="d-flex justify-content-center p-2" data-bs-toggle="collapse"
+            data-bs-target="#filters_section">
+            <div class="h5 text-center px-2">
+                <i class="fa-solid fa-search fa-lg"></i>
+            </div>
+            <div class="h5 text-center">Search</div>
+
+        </div>
+    </div>
+    <hr class="py-1 m-0 bg-light" style="height: 2px;">
+    <div id="show_filters_btn" data-bs-toggle="collapse" class="bg-light d-flex justify-content-center"
+        data-bs-target="#filters_section">
+        <i id="show_filters_arrow" class="fa-solid fa-chevron-down fa-beat fa-2xl" style="color: #0d6efd;"></i>
+    </div>
+
+    <div id="main_table" class="bg-light p-3 list-group rounded-top-0">
+
+    </div>
+
+</body>
+
+<script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/all.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/star-rating.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/kj.js') }}"></script>
+<script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/events.js') }}"></script>
+<script src="{{ url_for('static', filename='js/pwa-install.js') }}"></script>
+
+</html>
