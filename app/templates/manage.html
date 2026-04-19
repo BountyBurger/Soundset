@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/manage_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 
     <script src="{{ url_for('static', filename='js/all.min.js') }}"></script>
@@ -19,7 +20,7 @@
     <datalist id="artists_datalist"></datalist>
     <datalist id="tags_datalist"></datalist>
 
-    <div class="d-flex justify-content-between bg-light p-2 rounded-bottom-1 align-items-center">
+    <div class="d-flex justify-content-between bg-light p-2  align-items-center">
         <a href="{{ url_for('index') }}" class="p-2 me-3 ms-2">
             <i class="fa-solid fa-arrow-left fa-xl"></i>
         </a>
@@ -44,7 +45,7 @@
             </div>
             <div class="input-group p-2">
                 <input type="text" class="form-control" id="artist_search_input" placeholder="Search an artist">
-                <button class="btn btn-primary" id="search_artist_btn">Search</button>
+                <button class="btn btn-soundset" id="search_artist_btn">Search</button>
             </div>
             <div id="artist_list" class="p-2 list-group"></div>
         </div>
@@ -55,7 +56,7 @@
             </div>
             <div class="input-group p-2">
                 <input type="text" class="form-control" id="tag_search_input" placeholder="Search a tag">
-                <button class="btn btn-primary" id="search_tag_btn">Search</button>
+                <button class="btn btn-soundset" id="search_tag_btn">Search</button>
             </div>
             <div id="tag_list" class="p-2 list-group"></div>
         </div>

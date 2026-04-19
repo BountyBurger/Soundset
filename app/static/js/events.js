@@ -5,6 +5,7 @@ window.addEventListener("load", (event) => {
     update_tags_list();
     update_artists_list();
     search();
+    $("#unrated_checkbox").trigger("change");
 });
 
 /* dual slider js */
@@ -67,6 +68,14 @@ $("#show_filters_btn").on("click", function () {
 $("#search_btn").on("click", function () {
     $("#loading-popup").fadeIn(200);
     search();
+});
+
+$("#unrated_checkbox").on("change", function () {
+    if ($(this).is(":checked")) {
+        $("#rating_input_container").hide();
+    } else {
+        $("#rating_input_container").show();
+    }
 });
 
 $("#edit_artist_talking").on("change", function () {

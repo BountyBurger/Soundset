@@ -209,8 +209,8 @@ function stringToColor(str) {
         let value = (hash >> (i * 8)) & 0xFF;
 
         // Limit the color range to a defined interval
-        let min = 51;  // 0x33
-        let max = 204; // 0xcc
+        let min = 75;  // 0x33
+        let max = 225; // 0xcc
 
         // Adjust the value to stay within the range
         value = Math.max(min, Math.min(max, value));
@@ -218,6 +218,9 @@ function stringToColor(str) {
         // Convert to hexadecimal and add to the color
         color += ('00' + value.toString(16)).substr(-2);
     }
+
+    // Add opacity
+    color += "B0";
 
     return color;
 }

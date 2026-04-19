@@ -115,7 +115,7 @@
                         <div class="input-group mb-3">
                             <input id="edit_artist_input" type="text" class="form-control" placeholder="Artist"
                                 list="artists_datalist">
-                            <button class="btn btn-primary" type="button" id="edit_btn_add_artist">Add</button>
+                            <button class="btn btn-soundset" type="button" id="edit_btn_add_artist">Add</button>
                         </div>
                         <div id="edit_artist_list" class="d-flex align-content-around flex-wrap"></div>
                     </div>
@@ -125,7 +125,7 @@
                         <div class="input-group mb-3">
                             <input id="edit_tag_input" type="text" class="form-control" placeholder="Tag"
                                 list="tags_datalist">
-                            <button class="btn btn-primary" type="button" id="edit_btn_add_tag">Add</button>
+                            <button class="btn btn-soundset" type="button" id="edit_btn_add_tag">Add</button>
                         </div>
                         <div id="edit_tag_list" class="d-flex align-content-around flex-wrap"></div>
                     </div>
@@ -192,14 +192,14 @@
                     <div id="info_modal_text"></div>
                 </div>
                 <div class="modal-footer justify-content-center">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+                    <button type="button" class="btn btn-soundset" data-bs-dismiss="modal">Ok</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="m-3 p-2 text-light bg-primary rounded-circle" id="btn_add_set">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus"
+    <div class="m-3 p-2 text-light rounded-circle btn-soundset" id="btn_add_set">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" class="bi bi-plus"
             viewBox="0 0 16 16">
             <path
                 d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
@@ -258,11 +258,11 @@
         </div>
 
         <div class="d-flex flex-column p-3 align-items-center">
-            <div>
+            <div class="pb-3" id="rating_input_container">
                 <input id="rating_input" name="rating_input" class="rating rating-loading" data-show-clear="false"
                     data-show-caption="false">
             </div>
-            <div class="pt-3 form-check form-switch">
+            <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="unrated_checkbox">
                 <label class="form-check-label" for="unrated_checkbox">Unrated</label>
             </div>
@@ -369,10 +369,10 @@
                             <div class="pt-4 m-0 h5 text-center">Artist talking</div>
                             <div class="pt-4">
                                 <input id="artist_talking_checkbox" type="checkbox" class="btn-check" checked>
-                                <label class="btn btn-outline-primary" for="artist_talking_checkbox">Yes</label>
+                                <label class="btn btn-outline-warning" for="artist_talking_checkbox">Yes</label>
 
                                 <input id="artist_not_talking_checkbox" type="checkbox" class="btn-check" checked>
-                                <label class="btn btn-outline-primary" for="artist_not_talking_checkbox">No</label>
+                                <label class="btn btn-outline-warning" for="artist_not_talking_checkbox">No</label>
                             </div>
                         </div>
                     </div>
@@ -430,19 +430,15 @@
             </div>
         </div>
 
-        <div id="search_btn" class="d-flex justify-content-center p-2" data-bs-toggle="collapse"
-            data-bs-target="#filters_section">
-            <div class="h5 text-center px-2">
-                <i class="fa-solid fa-search fa-lg"></i>
-            </div>
-            <div class="h5 text-center">Search</div>
-
+        <div id="search_btn" class="p-2" data-bs-toggle="collapse" data-bs-target="#filters_section">
+            <i class="fa-solid fa-search fa-lg pe-2"></i>
+            <span class="h5 m-0 text-center">Search</span>
         </div>
     </div>
     <hr class="py-1 m-0 bg-light" style="height: 2px;">
     <div id="show_filters_btn" data-bs-toggle="collapse" class="bg-light d-flex justify-content-center"
         data-bs-target="#filters_section">
-        <i id="show_filters_arrow" class="fa-solid fa-chevron-down fa-beat fa-2xl" style="color: #0d6efd;"></i>
+        <i id="show_filters_arrow" class="fa-solid fa-chevron-down fa-2xl" style="color: #FFC000;"></i>
     </div>
 
     <div id="main_table" class="bg-light p-3 list-group rounded-top-0">

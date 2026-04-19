@@ -41,7 +41,10 @@ Create, manage and share your music library with Soundset.
     ```
 
 3.  **Configure Environment**:
-    Copy `.env.example` to `.env` in the root directory and set the variables:
+    ```bash
+    cp .env.local .env
+    ```
+    Edit the `.env` file with your own values:
     ```env
     HTTP_PORT=8080
     YOUTUBE_API_KEY='<your_api_key_here>'
@@ -59,9 +62,9 @@ python run.py
 The application will be accessible at `http://localhost:8080`.
 
 <picture>
-    <img src="screenshots/cap1.png" alt="" width="33%">
-    <img src="screenshots/cap2.png" alt="" width="33%">
-    <img src="screenshots/cap3.png" alt="" width="33%">
+    <img src="screenshots/cap1.png" alt="" width="32%">
+    <img src="screenshots/cap2.png" alt="" width="32%">
+    <img src="screenshots/cap3.png" alt="" width="32%">
 </picture>
 
 
@@ -83,7 +86,7 @@ This application is still in development and may contains bugs and vulnerabiliti
 - [ ] Add more platforms
 - [ ] Add a tutorial popup after library creation
 - [ ] Add a dark mode
-- [ ] Change the primary color to orange
+- [x] Change the primary color to orange
 - [ ] Dockerize the application
 - [ ] Reduce external libraries usage
 - [ ] Implement a discovery platform to find more music of a specific genre

@@ -16,11 +16,13 @@
 </head>
 
 <body class="bg-light">
+    <div class="d-flex justify-content-between bg-dark p-2  align-items-center">
+        <a href="{{ url_for('index') }}" class="p-2 me-3 ms-2">
+            <i class="fa-solid fa-arrow-left fa-xl"></i>
+        </a>
+    </div>
     <div class="container py-5">
         <div class="d-flex mb-4 align-items-center">
-            <a href="/" class="btn btn-outline-secondary me-3">
-                <i class="fas fa-arrow-left"></i>
-            </a>
             <h1 class="mb-0">Database Settings</h1>
         </div>
 
@@ -41,7 +43,7 @@
                             <textarea class="form-control" id="db_description" rows="4"
                                 placeholder="Enter description..."></textarea>
                         </div>
-                        <button id="save_info_btn" class="btn btn-primary w-100">
+                        <button id="save_info_btn" class="btn btn-soundset w-100">
                             <i class="fas fa-save me-2"></i>Save Information
                         </button>
                     </div>

@@ -27,7 +27,8 @@ body {
 }
 
 .confirm {
-   background: linear-gradient(315deg, #0d6efd 25%, #64a2ff 50%, #0d6efd 75%);
+   /*background: linear-gradient(315deg, #0d6efd 25%, #64a2ff 50%, #0d6efd 75%);*/
+   background: linear-gradient(315deg, #ffc000 25%, #f4ff00b0 50%, #ffc000 75%);
    background-size: 200% 200%;
    animation: gradientMove 6s ease-in-out infinite;
 }
@@ -150,4 +151,38 @@ input[type=range] {
    display: none;
    position: relative;
    z-index: 1;
+}
+
+#search_btn {
+   background-color: #FFC000;
+   color: #000;
+   border-radius: 50px;
+   cursor: pointer;
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+   transition: all 0.2s ease;
+   width: fit-content;
+   margin: 20px auto;
+   padding-left: 25px !important;
+   padding-right: 25px !important;
+   border: none;
+   display: flex;
+   align-items: center;
+}
+
+.fa-arrow-left {
+   color: #FFC000;
+}
+
+.btn-soundset {
+   background-color: #FFC000;
+}
+
+.nav-link.active {
+   background-color: #FFC000 !important;
+   color: #000 !important;
+}
+
+.form-check-input:checked {
+   background-color: #FFC000 !important;
+   border-color: #FFC000 !important;
 }
