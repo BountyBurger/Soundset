@@ -261,14 +261,12 @@ $("#add_set-btn").on("click", function () {
     var rating = $("#add_set_rating").val() || -1;
     var record_quality = $("#add_set_record_quality").val();
     var crowd_level = $("#add_set_crowd_level").val();
-    var artist_talking = $("#add_set_artist_talking").is(":checked");
 
     var add_data = {
         "url": url,
         "rating": rating,
         "record_quality": record_quality,
-        "crowd_level": crowd_level,
-        "artist_talking": artist_talking
+        "crowd_level": crowd_level
     };
 
     var json_to_send = {

@@ -270,6 +270,49 @@ function search() {
 
                 var id = data[i][0];
 
+                var dot_1 = "";
+                var dot_2 = "";
+                var dot_3 = "";
+
+                //Record quality
+                if (data[i][6] == 0) {
+                    var dot_1 = "dot-red";
+                }
+                else if (data[i][6] == 1) {
+                    var dot_1 = "dot-yellow";
+                }
+                else if (data[i][6] == 2) {
+                    var dot_1 = "dot-green";
+                }
+
+                //Crowd level
+                if (data[i][8] == 0) {
+                    var dot_2 = "dot-green";
+                }
+                else if (data[i][8] == 1) {
+                    var dot_2 = "dot-yellow";
+                }
+                else if (data[i][8] == 2) {
+                    var dot_2 = "dot-red";
+                }
+
+                //Artist talking
+                if (data[i][7] == 0) {
+                    var dot_3 = "dot-green";
+                }
+                else if (data[i][7] == 1) {
+                    var dot_3 = "dot-red";
+                }
+                else {
+                    var dot_3 = "dot-hidden";
+                }
+
+                var quality_quick_view = "<div class='d-flex justify-content-start gap-1'>\
+                                        <div class='dot "+ dot_1 + "'></div>\
+                                        <div class='dot "+ dot_2 + "'></div>\
+                                        <div class='dot "+ dot_3 + "'></div>\
+                                    </div>";
+
                 var item_div = "\
                 <set id='"+ id + "' class='set_div rounded-4 mb-3 list-group-item shadow' " + div_metadata + ">\
                     <div class='d-flex w-100 justify-content-between'>\
@@ -284,7 +327,7 @@ function search() {
                         <div class='accordion-item'>\
                             <h2 class='accordion-header'>\
                                 <button class='p-1 accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#ACC"+ id + "'>\
-                                    Quality\
+                                "+ quality_quick_view + "\
                                 </button>\
                             </h2>\
                             <div id='ACC"+ id + "' class='accordion-collapse collapse'>\

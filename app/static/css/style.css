@@ -186,3 +186,34 @@ input[type=range] {
    background-color: #FFC000 !important;
    border-color: #FFC000 !important;
 }
+
+/*.accordion-button {
+   justify-content: center !important;
+}
+
+button.p-1.accordion-button.collapsed::after {
+   justify-content: center !important;
+}*/
+
+.dot {
+   width: 0.4rem;
+   height: 0.4rem;
+   border-radius: 25%;
+   border: 1px solid rgba(0, 0, 0, 0.699);
+}
+
+.dot-red {
+   background-color: red;
+}
+
+.dot-yellow {
+   background-color: rgb(255, 187, 0);
+}
+
+.dot-green {
+   background-color: green;
+}
+
+.dot-hidden {
+   background-color: transparent !important;
+}
