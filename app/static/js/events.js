@@ -2,6 +2,54 @@
 
 //call the search function when the page loads
 window.addEventListener("load", (event) => {
+    // Check for shared parameters in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const sharedTitle = urlParams.get('shared_title');
+    const sharedText = urlParams.get('shared_text');
+    const sharedUrl = urlParams.get('shared_url');
+
+    function extractUrl(text) {
+        if (!text) return null;
+        const urlRegex = /(https?:\/\/[^\s]+)/gi;
+        const matches = text.match(urlRegex);
+        return matches ? matches[0] : null;
+    }
+
+    let targetUrl = null;
+    if (sharedUrl) {
+        targetUrl = extractUrl(sharedUrl) || sharedUrl;
+    }
+    if (!targetUrl && sharedText) {
+        targetUrl = extractUrl(sharedText);
+    }
+    if (!targetUrl && sharedTitle) {
+        targetUrl = extractUrl(sharedTitle);
+    }
+
+    if (targetUrl) {
+        // If not logged in, save to localStorage so it persists after login redirect
+        if (localStorage.getItem("token") === null || localStorage.getItem("database") === null) {
+            localStorage.setItem("pending_shared_url", targetUrl);
+        } else {
+            // Already logged in, populate the input and open the modal
+            $("#add_set_url").val(targetUrl);
+            $("#add_set").modal("show");
+        }
+        // Clean up the URL search params so refresh/reload doesn't keep triggering this
+        window.history.replaceState({}, document.title, window.location.pathname);
+    } else {
+        // Check if we have a pending shared URL from a previous login redirection
+        const pendingUrl = localStorage.getItem("pending_shared_url");
+        if (pendingUrl) {
+            // Only populate and show modal if we are logged in now
+            if (localStorage.getItem("token") !== null && localStorage.getItem("database") !== null) {
+                $("#add_set_url").val(pendingUrl);
+                $("#add_set").modal("show");
+                localStorage.removeItem("pending_shared_url");
+            }
+        }
+    }
+
     update_tags_list();
     update_artists_list();
     search();

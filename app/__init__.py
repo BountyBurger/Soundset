@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, redirect, request, url_for
 from flask_cors import CORS
 from app.core import config
 from app.api import register_blueprints
@@ -35,6 +35,12 @@ def create_app(config_class=config.Config):
     @app.route('/')
     def index():
         return render_template('index.html')
+        
+    @app.route('/share-link')
+    def share_link():
+        if request.query_string:
+            return redirect(url_for('index') + '?' + request.query_string.decode('utf-8'))
+        return redirect(url_for('index'))
         
     @app.route('/manage')
     def manage():
