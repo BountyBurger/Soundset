@@ -59,7 +59,16 @@ def get_stats():
     results = cursor.fetchall()
     json_data["sets"]["rating_repartition"] = {}
     for result in results:
-        json_data["sets"]["rating_repartition"][result[0]] = result[1]
+        rating = result[0]
+        if rating is None:
+            key = "Unknown"
+        else:
+            try:
+                val = float(rating)
+                key = str(int(val)) if val.is_integer() else str(val)
+            except (ValueError, TypeError):
+                key = str(rating)
+        json_data["sets"]["rating_repartition"][key] = json_data["sets"]["rating_repartition"].get(key, 0) + result[1]
         
     # Get platform repartition
     cursor.execute("SELECT platform, COUNT(*) \
@@ -69,7 +78,8 @@ def get_stats():
     results = cursor.fetchall()
     json_data["sets"]["platform_repartition"] = {}
     for result in results:
-        json_data["sets"]["platform_repartition"][result[0]] = result[1]
+        key = str(result[0]) if result[0] is not None else "Unknown"
+        json_data["sets"]["platform_repartition"][key] = json_data["sets"]["platform_repartition"].get(key, 0) + result[1]
         
 
     # Timechart of the last 6 months of the number of sets added
@@ -101,9 +111,10 @@ def get_stats():
                    ORDER BY crowd_level;")
     results = cursor.fetchall()
     json_data["sets"]["crowd_level_repartition"] = {}
+    crowd_map = {0: "None", 1: "Light", 2: "Loud"}
     for result in results:
-        # crowd_level can be None or integer. Assuming 1-5 or similar.
-        json_data["sets"]["crowd_level_repartition"][result[0]] = result[1]
+        key = crowd_map.get(result[0], "Unknown")
+        json_data["sets"]["crowd_level_repartition"][key] = json_data["sets"]["crowd_level_repartition"].get(key, 0) + result[1]
 
     # Audio quality repartition
     cursor.execute("SELECT record_quality, COUNT(*) \
@@ -112,8 +123,10 @@ def get_stats():
                    ORDER BY record_quality;")
     results = cursor.fetchall()
     json_data["sets"]["audio_quality_repartition"] = {}
+    quality_map = {0: "Bad", 1: "OK", 2: "Good"}
     for result in results:
-        json_data["sets"]["audio_quality_repartition"][result[0]] = result[1]
+        key = quality_map.get(result[0], "Unknown")
+        json_data["sets"]["audio_quality_repartition"][key] = json_data["sets"]["audio_quality_repartition"].get(key, 0) + result[1]
 
     # Artist talking repartition
     cursor.execute("SELECT artist_talking, COUNT(*) \
@@ -122,8 +135,10 @@ def get_stats():
                    ORDER BY artist_talking;")
     results = cursor.fetchall()
     json_data["sets"]["artist_talking_repartition"] = {}
+    talking_map = {0: "No", 1: "Yes"}
     for result in results:
-        json_data["sets"]["artist_talking_repartition"][result[0]] = result[1]
+        key = talking_map.get(result[0], "Unknown")
+        json_data["sets"]["artist_talking_repartition"][key] = json_data["sets"]["artist_talking_repartition"].get(key, 0) + result[1]
 
     # Top 5 most played sets
     cursor.execute("SELECT full_name, click_count, thumbnail_url \
