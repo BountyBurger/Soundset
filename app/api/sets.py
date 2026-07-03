@@ -183,9 +183,9 @@ def delete_set():
         return "Bad session token", 400
     conn = get_db_connection(f"{Config.DB_REPO_PATH}/{db_name}.db")
     cursor = conn.cursor()
-    cursor.execute(f"DELETE FROM rel_sets_tags WHERE id_set = {set_id};")
-    cursor.execute(f"DELETE FROM rel_sets_artists WHERE id_set = {set_id};")
-    cursor.execute(f"DELETE FROM sets WHERE id = {set_id};")
+    cursor.execute("DELETE FROM rel_sets_tags WHERE id_set = ?;", (set_id,))
+    cursor.execute("DELETE FROM rel_sets_artists WHERE id_set = ?;", (set_id,))
+    cursor.execute("DELETE FROM sets WHERE id = ?;", (set_id,))
     conn.commit()
     conn.close()
     return "OK", 200
@@ -197,7 +197,7 @@ def update_click_count():
         return "Bad session token", 400
     conn = get_db_connection(f"{Config.DB_REPO_PATH}/{db_name}.db")
     cursor = conn.cursor()
-    cursor.execute(f"UPDATE sets SET click_count = click_count + 1 WHERE id = {request.json.get('api_data').get('set_id')};")
+    cursor.execute("UPDATE sets SET click_count = click_count + 1 WHERE id = ?;", (request.json.get('api_data').get('set_id'),))
     conn.commit()
     conn.close()
     return "OK", 200

@@ -59,9 +59,9 @@ def delete_artist():
     artist_id = request.json.get('api_data').get('id')
     
     #delete all relations with sets
-    cursor.execute(f"DELETE FROM rel_sets_artists WHERE id_artist = {artist_id};")
+    cursor.execute("DELETE FROM rel_sets_artists WHERE id_artist = ?;", (artist_id,))
     #delete the artist
-    cursor.execute(f"DELETE FROM artists WHERE id = {artist_id};")
+    cursor.execute("DELETE FROM artists WHERE id = ?;", (artist_id,))
     conn.commit()
     conn.close()
     return "OK", 200

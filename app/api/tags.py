@@ -56,9 +56,9 @@ def delete_tag():
     tag_id = request.json.get('api_data').get('id')
     
     #delete all relations with sets
-    cursor.execute(f"DELETE FROM rel_sets_tags WHERE id_tag = {tag_id};")
+    cursor.execute("DELETE FROM rel_sets_tags WHERE id_tag = ?;", (tag_id,))
     #delete the tag
-    cursor.execute(f"DELETE FROM tags WHERE id = {tag_id};")
+    cursor.execute("DELETE FROM tags WHERE id = ?;", (tag_id,))
     conn.commit()
     conn.close()
     return "OK", 200

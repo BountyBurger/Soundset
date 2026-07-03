@@ -25,25 +25,30 @@ def search():
             LEFT JOIN tags t ON rt.id_tag = t.id "
 
     conditions = []
+    params = []
 
     # Title search
     if filters.get("title_search"):
-         conditions.append(f"full_name LIKE '%{filters.get('title_search')}%'")
+         conditions.append("full_name LIKE ?")
+         params.append(f"%{filters.get('title_search')}%")
         
     # Platforms filter
     platforms = filters.get("platforms")
     if platforms and len(platforms) > 0:
-        platform_clauses = [f"platform = '{p}'" for p in platforms]
+        platform_clauses = ["platform = ?" for p in platforms]
         conditions.append("(" + " OR ".join(platform_clauses) + ")")
+        params.extend(platforms)
     
     # Length filter
     length_min = int(filters.get("length_min", 0))
     if length_min != 0:
-        conditions.append(f'length >= "{minutes_to_time(length_min)}"')
+        conditions.append("length >= ?")
+        params.append(minutes_to_time(length_min))
         
     length_max = int(filters.get("length_max", 240))
     if length_max != 240:
-        conditions.append(f'length <= "{minutes_to_time(length_max)}"')
+        conditions.append("length <= ?")
+        params.append(minutes_to_time(length_max))
         
     # Record quality filter
     record_quality = filters.get("record_quality")
@@ -96,7 +101,8 @@ def search():
     if rating_min is not None:
         rating_min = float(rating_min)
         if rating_min > 0:
-            conditions.append(f'rating >= {rating_min}')
+            conditions.append('rating >= ?')
+            params.append(rating_min)
         elif rating_min == -1:
             conditions.append('rating = -1')
         
@@ -104,14 +110,16 @@ def search():
     if filters.get("tags") and len(filters.get("tags")) > 0:
         tag_conditions = []
         for tag in filters.get("tags"):
-            tag_conditions.append(f"EXISTS (SELECT 1 FROM rel_sets_tags rst WHERE rst.id_set = m.id AND rst.id_tag = {tag})")
+            tag_conditions.append("EXISTS (SELECT 1 FROM rel_sets_tags rst WHERE rst.id_set = m.id AND rst.id_tag = ?)")
+            params.append(int(tag))
         conditions.append("(" + " OR ".join(tag_conditions) + ")")
         
     # Artists filter
     if filters.get("artists") and len(filters.get("artists")) > 0:
         artist_conditions = []
         for artist in filters.get("artists"):
-            artist_conditions.append(f"EXISTS (SELECT 1 FROM rel_sets_artists rsa WHERE rsa.id_set = m.id AND rsa.id_artist = {artist})")
+            artist_conditions.append("EXISTS (SELECT 1 FROM rel_sets_artists rsa WHERE rsa.id_set = m.id AND rsa.id_artist = ?)")
+            params.append(int(artist))
         conditions.append("(" + " OR ".join(artist_conditions) + ")")
 
     if conditions:
@@ -128,9 +136,9 @@ def search():
             
     query += ' GROUP BY m.id, m.full_name ORDER BY ' + order_by + ' LIMIT 100;'
     
-    print(f"{bcolors.HEADER}SEARCH QUERY : {query}{bcolors.ENDC}")
+    print(f"{bcolors.HEADER}SEARCH QUERY : {query}{bcolors.ENDC} with params {params}")
     
-    cursor.execute(query)
+    cursor.execute(query, params)
     results = cursor.fetchall()
     conn.close()
     

@@ -305,16 +305,19 @@ function update_top5_most_played(top5) {
     var color = isFirst ? "#FFD700" : (idx === 1 ? "#C0C0C0" : "#CD7F32");
     var thumb = item.thumbnail_url && item.thumbnail_url !== "NULL" ? item.thumbnail_url : 'https://placehold.co/150?text=No+Image';
 
+    var escaped_name = escapeHtml(item.name);
+    var escaped_thumb = escapeHtml(thumb);
+
     var card = `
             <div class="d-flex flex-column align-items-center" style="width: 140px;">
                 <div class="mb-2 fw-bold" style="color: ${color}; font-size: 1.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">#${item.rank}</div>
                 <div class="position-relative mb-2">
-                    <img src="${thumb}" class="rounded-circle shadow" style="width: ${isFirst ? '120px' : '90px'}; height: ${isFirst ? '120px' : '90px'}; object-fit: cover; border: 4px solid ${color};" onerror="this.src='https://placehold.co/100?text=No+Image'">
+                    <img src="${escaped_thumb}" class="rounded-circle shadow" style="width: ${isFirst ? '120px' : '90px'}; height: ${isFirst ? '120px' : '90px'}; object-fit: cover; border: 4px solid ${color};" onerror="this.src='https://placehold.co/100?text=No+Image'">
                 </div>
                 <div class="bg-white p-2 rounded shadow-sm text-center w-100 position-relative" style="z-index: 2;">
-                     <div class="fw-bold text-truncate" title="${item.name}">${item.name}</div>
+                     <div class="fw-bold text-truncate" title="${escaped_name}">${escaped_name}</div>
                      <div class="text-muted small">${item.click_count} plays</div>
-                </div>
+                 </div>
                 <div style="background: linear-gradient(to bottom, ${color}, white); height: ${height}; width: 80%; border-radius: 8px 8px 0 0; margin-top: -5px; z-index: 1;"></div>
             </div>
         `;
@@ -328,12 +331,14 @@ function update_top5_most_played(top5) {
     for (var i = 3; i < top5.length; i++) {
       var item = top5[i];
       var thumb = item.thumbnail_url && item.thumbnail_url !== "NULL" ? item.thumbnail_url : 'https://placehold.co/50?text=No+Img';
+      var escaped_name = escapeHtml(item.name);
+      var escaped_thumb = escapeHtml(thumb);
       var row = `
                 <div class="list-group-item d-flex justify-content-between align-items-center shadow-sm mb-2 border-0 rounded">
                     <div class="d-flex align-items-center overflow-hidden">
                         <span class="fw-bold me-3 text-secondary" style="font-size: 1.2rem; min-width: 30px;">#${item.rank}</span>
-                        <img src="${thumb}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;" onerror="this.src='https://placehold.co/50?text=No+Img'">
-                        <span class="text-truncate fw-bold text-dark" title="${item.name}">${item.name}</span>
+                        <img src="${escaped_thumb}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;" onerror="this.src='https://placehold.co/50?text=No+Img'">
+                        <span class="text-truncate fw-bold text-dark" title="${escaped_name}">${escaped_name}</span>
                     </div>
                     <span class="badge bg-dark rounded-pill p-2">${item.click_count} plays</span>
                 </div>

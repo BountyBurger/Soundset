@@ -154,8 +154,8 @@ function search() {
             }
             for (var i = 0; i < data.length; i++) {
 
-                var croped_title = data[i][2];
-                var div_metadata = "full_title='" + data[i][2] + "'";
+                var croped_title = escapeHtml(data[i][2]);
+                var div_metadata = "full_title=\"" + escapeHtml(data[i][2]) + "\"";
 
                 //tags
                 var tags_div = "<div class='d-flex justify-content-start'>";
@@ -167,7 +167,7 @@ function search() {
                             if (global_tag_list[k][0] == tag_array[j]) {
                                 var badge_color = stringToColor(global_tag_list[k][1]);
                                 sec_random = 7;
-                                tags_div += "<span style='background: linear-gradient(315deg," + badge_color + " 25%,rgb(255, 255, 255) 50%," + badge_color + " 75%);animation: gradientMove " + sec_random + "s ease-in-out infinite;background-size: 200% 200%;' class='me-2 badge rounded-pill shadow-sm text-dark'>" + global_tag_list[k][1] + "</span>";
+                                tags_div += "<span style='background: linear-gradient(315deg," + badge_color + " 25%,rgb(255, 255, 255) 50%," + badge_color + " 75%);animation: gradientMove " + sec_random + "s ease-in-out infinite;background-size: 200% 200%;' class='me-2 badge rounded-pill shadow-sm text-dark'>" + escapeHtml(global_tag_list[k][1]) + "</span>";
                             }
                         }
                     }
@@ -193,7 +193,7 @@ function search() {
                                 if (j != 0) {
                                     artist_div += " / ";
                                 }
-                                artist_div += global_artist_list[k][1];
+                                artist_div += escapeHtml(global_artist_list[k][1]);
                             }
                         }
                     }
@@ -379,6 +379,7 @@ function update_tags_list() {
             $("#tags_datalist").empty();
             for (var i = 0; i < data.length; i++) {
                 var badge_color = stringToColor(get_tag_name_from_id(data[i][0]));
+                var tag_escaped = escapeHtml(data[i][1]);
                 var tag = '<input id="' + data[i][0] + '" type="checkbox" class="btn-check">\
                             <label style="background: \
                                         linear-gradient(315deg,'+ badge_color + ' 25%,rgb(255, 255, 255) 50%,' + badge_color + ' 75%);\
@@ -386,7 +387,7 @@ function update_tags_list() {
                                         border: solid 2px rgba(255, 255, 255, 0); \
                                         background-size: 200% 200%;" \
                                     class="m-2 badge rounded-pill shadow-sm text-dark" \
-                                    for="'+ data[i][0] + '">' + data[i][1] + '\
+                                    for="'+ data[i][0] + '">' + tag_escaped + '\
                             </label>';
                 $("#tags_list").append(tag);
 
@@ -398,7 +399,7 @@ function update_tags_list() {
                         label.css("border", "solid 2px rgba(255, 255, 255, 0)");
                     }
                 });
-                $("#tags_datalist").append('<option value="' + data[i][1] + '">');
+                $("#tags_datalist").append('<option value="' + tag_escaped + '">');
             }
         },
         error: function (err) {
@@ -419,7 +420,7 @@ function update_artists_list() {
             global_artist_list = data;
             $("#artists_datalist").empty();
             for (var i = 0; i < data.length; i++) {
-                $("#artists_datalist").append('<option value="' + data[i][1] + '">');
+                $("#artists_datalist").append('<option value="' + escapeHtml(data[i][1]) + '">');
             }
         },
         error: function (err) {

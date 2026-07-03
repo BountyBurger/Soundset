@@ -82,7 +82,7 @@ This application is still in development and may contains bugs and vulnerabiliti
 
 ## 📋 Roadmap
 - [x] Import/Export library
-- [ ] Improve security (SQL injection, XSS, CSRF)
+- [x] Improve security (SQL injection, XSS, CSRF)
 - [ ] Add more platforms
 - [ ] Add a tutorial popup after library creation
 - [ ] Add a dark mode

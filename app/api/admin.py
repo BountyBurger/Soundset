@@ -3,12 +3,26 @@ import sqlite3
 import hashlib
 import time
 import os
+import re
 from app.core import config
 from app.core.database import check_password, get_db_connection, clean_expired_tokens, get_dbname_from_token
 from app.core.utils import generate_token
 import json
 
 bp = Blueprint('admin', __name__, url_prefix='/api/database')
+
+VALID_COLUMNS = {
+    'artists': {'id', 'name'},
+    'tags': {'id', 'name'},
+    'sets': {'id', 'url', 'full_name', 'platform', 'click_count', 'length', 'record_quality', 'artist_talking', 'crowd_level', 'rating', 'insert_date', 'release_date', 'pf_id', 'thumbnail_url'},
+    'rel_sets_artists': {'id', 'id_set', 'id_artist'},
+    'rel_sets_tags': {'id', 'id_set', 'id_tag'}
+}
+
+def is_valid_db_name(name):
+    if not name or not isinstance(name, str):
+        return False
+    return bool(re.match(r'^[a-zA-Z0-9]+$', name))
 
 def init_dbms():
     conn = get_db_connection(config.Config.DBMS_PATH)
@@ -37,6 +51,8 @@ migrate_dbms()
 @bp.route('/create', methods=['POST'])
 def create_database():
     db_name = request.json.get("name")
+    if not is_valid_db_name(db_name):
+        return "Invalid database name", 400
     
     # Check if database already exists in DBMS
     conn = get_db_connection(config.Config.DBMS_PATH)
@@ -86,6 +102,8 @@ def create_database():
 @bp.route('/delete', methods=['POST'])
 def delete_database():
     db_name = request.json.get("name")
+    if not is_valid_db_name(db_name):
+        return "Invalid database name", 400
     db_password = request.json.get("password")
     
     if check_password(db_name, db_password) == False:
@@ -109,6 +127,8 @@ def delete_database():
 @bp.route('/load', methods=['POST'])
 def load_database():
     db_name = request.json.get("name")
+    if not is_valid_db_name(db_name):
+        return "Invalid database name", 400
     db_password = request.json.get("password")
     
     if check_password(db_name, db_password) == False:
@@ -234,6 +254,9 @@ def import_database():
                 
             # Use placeholders for security
             columns = data[table][0].keys()
+            for col in columns:
+                if col not in VALID_COLUMNS.get(table, set()):
+                    return f"Invalid column {col} in table {table}", 400
             placeholders = ", ".join(["?" for _ in columns])
             cursor.executemany(f"INSERT INTO {table} ({', '.join(columns)}) VALUES ({placeholders})", 
                               [tuple(row.values()) for row in data[table]])

@@ -15,11 +15,12 @@ function update_tags_list(search_query = "") {
             $("#tags_datalist").empty();
             $("#tag_list").empty();
             for (var i = 0; i < data.length; i++) {
-                $("#tags_datalist").append('<option value="' + data[i][1] + '">');
+                var escaped_name = escapeHtml(data[i][1]);
+                $("#tags_datalist").append('<option value="' + escaped_name + '">');
                 var tag_div = "<div class='list-group-item' id='tag_" + data[i][0] + "'>\
                                 <div class='d-flex justify-content-between align-items-center'>\
                                     <div class='d-flex'>\
-                                        <div class='fw-normal h5 ps-3 m-1'>"+ data[i][1] + "</div>\
+                                        <div class='fw-normal h5 ps-3 m-1'>"+ escaped_name + "</div>\
                                         <span class='position-absolute top-50 start-10 translate-middle p-2 border border-light rounded-circle' style='background-color: "+ stringToColor(data[i][1]) + "'></span>\
                                     </div>\
                                     <div class='p-1 border-2 border rounded-2 border-danger delete_tag_btn'><i class='fas fa-trash-can fa-xl' style='color: #dc3545;'></i></div>\
@@ -46,10 +47,11 @@ function update_artists_list(search_query = "") {
             $("#artists_datalist").empty();
             $("#artist_list").empty();
             for (var i = 0; i < data.length; i++) {
-                $("#artists_datalist").append('<option value="' + data[i][1] + '">');
+                var escaped_name = escapeHtml(data[i][1]);
+                $("#artists_datalist").append('<option value="' + escaped_name + '">');
                 var artist_div = "<div class='list-group-item' id='artist_" + data[i][0] + "'>\
                                     <div class='d-flex justify-content-between align-items-center'>\
-                                        <div class='fw-normal h5 m-1'>"+ data[i][1] + "</div>\
+                                        <div class='fw-normal h5 m-1'>"+ escaped_name + "</div>\
                                         <div class='p-1 border-2 border rounded-2 border-danger delete_artist_btn'><i class='fas fa-trash-can fa-xl' style='color: #dc3545;'></i></div>\
                                     </div>\
                                 </div>";

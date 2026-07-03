@@ -1,4 +1,14 @@
 /* ---------- UTILS ----------*/
+function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 var timeoutId = 0;
 var startX, startY;
 var isScrolling = false;
@@ -103,7 +113,7 @@ function open_edit_modal(id) {
                 var artist_div = "";
                 for (var i = 0; i < artist_list.length; i++) {
                     artist_div += '<div class="edit_artist_item mx-2 rounded-3 border p-2 \
-                    border-dark position-relative">'+ get_artist_name_from_id(artist_list[i]) + '<span \
+                    border-dark position-relative">'+ escapeHtml(get_artist_name_from_id(artist_list[i])) + '<span \
                     class="position-absolute top-0 start-100 translate-middle rounded-pill bg-danger">\
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" \
                     fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">\
@@ -125,7 +135,7 @@ function open_edit_modal(id) {
                 for (var i = 0; i < tag_list.length; i++) {
                     var badge_color = stringToColor(get_tag_name_from_id(tag_list[i]));
                     var sec_random = 7;
-                    tags_div += "<span style='background: linear-gradient(315deg," + badge_color + " 25%,rgb(255, 255, 255) 50%," + badge_color + " 75%);animation: gradientMove " + sec_random + "s ease-in-out infinite;background-size: 200% 200%;' class='me-2 badge rounded-pill shadow-sm text-dark edit_tag_item'>" + get_tag_name_from_id(tag_list[i]) + "</span>";
+                    tags_div += "<span style='background: linear-gradient(315deg," + badge_color + " 25%,rgb(255, 255, 255) 50%," + badge_color + " 75%);animation: gradientMove " + sec_random + "s ease-in-out infinite;background-size: 200% 200%;' class='me-2 badge rounded-pill shadow-sm text-dark edit_tag_item'>" + escapeHtml(get_tag_name_from_id(tag_list[i])) + "</span>";
                 }
                 $("#edit_tag_list").append(tags_div);
                 $(".edit_tag_item").on("click", function () {

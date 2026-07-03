@@ -100,7 +100,11 @@ $("#upper").on("input", function () {
 
 $("#btn_add_artist").on("click", function () {
     var artist_name = $("#artist_input").val();
-    $("#artist_list").append("<div id='" + artist_name + "' class='artist-pill m-2 rounded-4 fw-medium px-2 py-1 bg-primary-subtle'>" + artist_name + "</div>");
+    var artist_div = $("<div>")
+        .addClass("artist-pill m-2 rounded-4 fw-medium px-2 py-1 bg-primary-subtle")
+        .text(artist_name)
+        .attr("id", artist_name);
+    $("#artist_list").append(artist_div);
     $("#artist_input").val("");
 });
 
@@ -149,9 +153,15 @@ $("#edit_btn_add_artist").on("click", function () {
             }
         }
 
-        $("#edit_artist_list").append("<div class='edit_artist_item mx-2 rounded-3 border p-2 border-dark position-relative'>" + artist_name + "<span class='position-absolute top-0 start-100 translate-middle rounded-pill bg-danger'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x' viewBox='0 0 16 16'>\
-        <path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708'/>\
-        </svg></span></div>");
+        var spanEl = $("<span class='position-absolute top-0 start-100 translate-middle rounded-pill bg-danger'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x' viewBox='0 0 16 16'>\
+        <path d='M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 \
+        .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 \
+        0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708'/>\
+        </svg></span>");
+        var itemDiv = $("<div class='edit_artist_item mx-2 rounded-3 border p-2 border-dark position-relative'>")
+            .text(artist_name)
+            .append(spanEl);
+        $("#edit_artist_list").append(itemDiv);
         $(".edit_artist_item").on("click", function () {
             $(this).remove();
         });
@@ -177,7 +187,12 @@ $("#edit_btn_add_tag").on("click", function () {
         var sec_random = 7;
         var badge_color = stringToColor(tag_name);
 
-        $("#edit_tag_list").append("<span style='background: linear-gradient(315deg," + badge_color + " 25%,rgb(255, 255, 255) 50%," + badge_color + " 75%);animation: gradientMove " + sec_random + "s ease-in-out infinite;background-size: 200% 200%;' class='edit_tag_item me-2 badge rounded-pill shadow-sm text-dark'>" + tag_name + "</span>");
+        var tagSpan = $("<span class='edit_tag_item me-2 badge rounded-pill shadow-sm text-dark'>")
+            .css('background', "linear-gradient(315deg," + badge_color + " 25%,rgb(255, 255, 255) 50%," + badge_color + " 75%)")
+            .css('animation', "gradientMove " + sec_random + "s ease-in-out infinite")
+            .css('background-size', "200% 200%")
+            .text(tag_name);
+        $("#edit_tag_list").append(tagSpan);
         $(".edit_tag_item").on("click", function () {
             $(this).remove();
         });
