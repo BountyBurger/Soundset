@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soundset - Login</title>
+    <script src="{{ url_for('static', filename='js/theme_init.js') }}"></script>
     <link rel="icon" href="{{ url_for('static', filename='favicon.webp') }}">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
@@ -16,6 +17,12 @@
 </head>
 
 <body>
+    <div class="position-absolute top-0 end-0 p-3">
+        <button id="theme_toggle_btn" class="btn p-2 border-0 text-body shadow-none" aria-label="Toggle theme">
+            <i class="fa-solid fa-sun fa-lg theme-icon-light"></i>
+            <i class="fa-solid fa-moon fa-lg theme-icon-dark"></i>
+        </button>
+    </div>
     <div class="d-flex py-4 justify-content-center">
         <div class="d-flex align-items-center">
             <img src="{{ url_for('static', filename='pwa/512.webp') }}" width="40" height="40"
@@ -94,5 +101,6 @@
 <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
 
 <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
 
 </html>

@@ -1,3 +1,7 @@
+html {
+   background-color: var(--bs-body-bg);
+}
+
 html,
 body {
    width: 100%;
@@ -313,4 +317,47 @@ button.p-1.accordion-button.collapsed::after {
 
 #tutorial_skip_btn:hover {
    color: #fff !important;
+}
+
+/* Theme toggle icons visibility */
+.theme-icon-light,
+.theme-icon-dark {
+   display: none;
+}
+
+[data-bs-theme="dark"] .theme-icon-light {
+   display: inline-block !important;
+}
+
+[data-bs-theme="light"] .theme-icon-dark {
+   display: inline-block !important;
+}
+
+/* Theme-aware overrides for bg-light and other elements */
+[data-bs-theme="dark"] .bg-light {
+   background-color: var(--bs-body-bg) !important;
+   color: var(--bs-body-color) !important;
+}
+
+[data-bs-theme="dark"] .accordion-button.bg-light {
+   background-color: var(--bs-body-bg) !important;
+   color: var(--bs-body-color) !important;
+}
+
+[data-bs-theme="dark"] .accordion-body.bg-light {
+   background-color: var(--bs-body-bg) !important;
+   color: var(--bs-body-color) !important;
+}
+
+[data-bs-theme="dark"] .navbar {
+   background-color: var(--bs-body-bg) !important;
+}
+
+[data-bs-theme="dark"] .offcanvas {
+   background-color: var(--bs-body-bg) !important;
+   color: var(--bs-body-color) !important;
+}
+
+[data-bs-theme="dark"] .border-dark {
+   border-color: var(--bs-border-color) !important;
 }

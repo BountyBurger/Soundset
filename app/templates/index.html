@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soundset</title>
+    <script src="{{ url_for('static', filename='js/theme_init.js') }}"></script>
     <link rel="icon" href="{{ url_for('static', filename='pwa/512.webp') }}">
 
     <link rel="manifest" href="{{ url_for('static', filename='pwa/manifest.json') }}" crossorigin="use-credentials">
@@ -286,10 +287,16 @@
                         class="d-inline-block align-text-top">
                     Soundset
                 </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <div class="d-flex align-items-center gap-2">
+                    <button id="theme_toggle_btn" class="btn p-2 border-0 text-body shadow-none" aria-label="Toggle theme">
+                        <i class="fa-solid fa-sun fa-lg theme-icon-light"></i>
+                        <i class="fa-solid fa-moon fa-lg theme-icon-dark"></i>
+                    </button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
@@ -522,5 +529,6 @@
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 <script src="{{ url_for('static', filename='js/events.js') }}"></script>
 <script src="{{ url_for('static', filename='js/pwa-install.js') }}"></script>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
 
 </html>

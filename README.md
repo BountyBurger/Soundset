@@ -84,8 +84,8 @@ This application is still in development and may contains bugs and vulnerabiliti
 - [x] Import/Export library
 - [x] Improve security (SQL injection, XSS, CSRF)
 - [ ] Add more platforms
-- [ ] Add a tutorial popup after library creation
-- [ ] Add a dark mode
+- [x] Add a tutorial popup after library creation
+- [x] Add a dark mode toggle
 - [x] Change the primary color to orange
 - [ ] Dockerize the application
 - [ ] Reduce external libraries usage

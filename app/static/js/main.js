@@ -148,7 +148,7 @@ function search() {
                     filters.artists.length === 0);
 
                 var message = is_default ? "Your library is empty" : "No results found";
-                $("#main_table").append("<div class='pt-5 display-5 text-dark text-center'>" + message + "</div>");
+                $("#main_table").append("<div class='pt-5 display-5 text-body-secondary text-center'>" + message + "</div>");
                 $("#main_table").show();
                 return;
             }
@@ -314,7 +314,7 @@ function search() {
                                     </div>";
 
                 var item_div = "\
-                <set id='"+ id + "' class='set_div rounded-4 mb-3 list-group-item shadow' " + div_metadata + ">\
+                <set id='"+ id + "' class='rounded-4 mb-3 list-group-item shadow' " + div_metadata + ">\
                     <div class='d-flex w-100 justify-content-between'>\
                         <div class='title-fade h6 icon-link fw-bold'>"+ platform + croped_title + "</div>\
                         <small>" + duration + "</small>\

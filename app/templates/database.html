@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soundset - Database Settings</title>
+    <script src="{{ url_for('static', filename='js/theme_init.js') }}"></script>
     <link rel="icon" href="{{ url_for('static', filename='favicon.webp') }}">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
@@ -20,6 +21,10 @@
         <a href="{{ url_for('index') }}" class="p-2 me-3 ms-2">
             <i class="fa-solid fa-arrow-left fa-xl"></i>
         </a>
+        <button id="theme_toggle_btn" class="btn p-2 border-0 text-light shadow-none" aria-label="Toggle theme">
+            <i class="fa-solid fa-sun fa-lg theme-icon-light"></i>
+            <i class="fa-solid fa-moon fa-lg theme-icon-dark"></i>
+        </button>
     </div>
     <div class="container py-5">
         <div class="d-flex mb-4 align-items-center">
@@ -30,7 +35,7 @@
             <!-- Metadata Section -->
             <div class="col-md-6">
                 <div class="card shadow-sm h-100">
-                    <div class="card-header bg-white">
+                    <div class="card-header">
                         <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Database Information</h5>
                     </div>
                     <div class="card-body">
@@ -53,7 +58,7 @@
             <!-- Import/Export Section -->
             <div class="col-md-6">
                 <div class="card shadow-sm h-100">
-                    <div class="card-header bg-white">
+                    <div class="card-header">
                         <h5 class="mb-0"><i class="fas fa-exchange-alt me-2"></i>Backup & Restore</h5>
                     </div>
                     <div class="card-body d-flex flex-column justify-content-between">
@@ -124,6 +129,7 @@
 
     <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/database.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
 </body>
 
 </html>

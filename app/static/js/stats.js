@@ -1,4 +1,6 @@
 //When document is ready
+var cached_stats = null;
+
 function update_counters_chart(total_set, total_artist, total_genre) {
   $("#total_set_card").text(total_set);
   $("#total_artist_card").text(total_artist);
@@ -9,8 +11,11 @@ const main_colors = ["#f94144", "#f3722c", "#f8961e", "#f9844a", "#f9c74f", "#90
 
 function update_rated_pie_chart(rated, unrated) {
   var chartDom = document.getElementById('rated_pie_chart');
-  var myChart = echarts.init(chartDom);
+  var isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+  var myChart = echarts.init(chartDom, isDark ? 'dark' : null);
+  var textColor = isDark ? '#dee2e6' : '#303030';
   var option = {
+    backgroundColor: 'transparent',
     tooltip: {
       trigger: 'item',
       formatter: '{b}: {c} ({d}%)'
@@ -23,14 +28,14 @@ function update_rated_pie_chart(rated, unrated) {
         avoidLabelOverlap: false,
         itemStyle: {
           borderRadius: 10,
-          borderColor: '#fff',
+          borderColor: isDark ? '#212529' : '#fff',
           borderWidth: 2
         },
         label: {
           show: true,
           position: 'outside',
           formatter: '{b}\n{d}%',
-          color: '#303030',
+          color: textColor,
           fontSize: 14,
           fontWeight: 'bold'
         },
@@ -62,13 +67,16 @@ function update_top10_artists(top10) {
   }
 
   var chartDom = document.getElementById('top10_artists_chart');
-  var myChart = echarts.init(chartDom);
+  var isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+  var myChart = echarts.init(chartDom, isDark ? 'dark' : null);
+  var textColor = isDark ? '#dee2e6' : '#303030';
   var option = {
+    backgroundColor: 'transparent',
     title: {
       text: 'Top 10 Artists',
       left: 'center',
       top: 10,
-      textStyle: { color: '#303030', fontSize: 22, fontWeight: 'bold' }
+      textStyle: { color: textColor, fontSize: 22, fontWeight: 'bold' }
     },
     tooltip: {
       trigger: 'axis',
@@ -91,7 +99,7 @@ function update_top10_artists(top10) {
       axisLabel: {
         fontSize: 13,
         fontWeight: 'bold',
-        color: '#303030',
+        color: textColor,
         formatter: function (value, index) {
             return (reversedTop10.length - index) + ". " + value;
         }
@@ -105,7 +113,7 @@ function update_top10_artists(top10) {
         label: {
           show: true,
           position: 'right',
-          color: '#303030',
+          color: textColor,
           fontWeight: 'bold'
         },
         itemStyle: {
@@ -130,13 +138,16 @@ function update_top10_genres(top10) {
   }
 
   var chartDom = document.getElementById('top10_genres_chart');
-  var myChart = echarts.init(chartDom);
+  var isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+  var myChart = echarts.init(chartDom, isDark ? 'dark' : null);
+  var textColor = isDark ? '#dee2e6' : '#303030';
   var option = {
+    backgroundColor: 'transparent',
     title: {
       text: 'Top 10 Genres',
       left: 'center',
       top: 10,
-      textStyle: { color: '#303030', fontSize: 22, fontWeight: 'bold' }
+      textStyle: { color: textColor, fontSize: 22, fontWeight: 'bold' }
     },
     tooltip: {
       trigger: 'axis',
@@ -159,7 +170,7 @@ function update_top10_genres(top10) {
       axisLabel: {
         fontSize: 13,
         fontWeight: 'bold',
-        color: '#303030',
+        color: textColor,
         formatter: function (value, index) {
             return (reversedTop10.length - index) + ". " + value;
         }
@@ -173,7 +184,7 @@ function update_top10_genres(top10) {
         label: {
           show: true,
           position: 'right',
-          color: '#303030',
+          color: textColor,
           fontWeight: 'bold'
         },
         itemStyle: {
@@ -198,8 +209,10 @@ function update_rating_repartition(rating_repartition) {
   }
 
   var chartDom = document.getElementById('rating_repartition_chart');
-  var myChart = echarts.init(chartDom);
+  var isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+  var myChart = echarts.init(chartDom, isDark ? 'dark' : null);
   var option = {
+    backgroundColor: 'transparent',
     tooltip: { trigger: 'axis' },
     xAxis: {
       type: 'category',
@@ -264,13 +277,15 @@ function update_platforms_repartition(platforms_repartition) {
   });
 
   var chartDom = document.getElementById('platforms_repartition_chart');
-  var myChart = echarts.init(chartDom);
+  var isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+  var myChart = echarts.init(chartDom, isDark ? 'dark' : null);
   var option = {
+    backgroundColor: 'transparent',
     title: {
       text: 'Platforms Repartition',
       left: 'center',
       top: 10,
-      textStyle: { color: '#303030', fontSize: 20, fontWeight: 'bold' }
+      textStyle: { color: isDark ? '#dee2e6' : '#303030', fontSize: 20, fontWeight: 'bold' }
     },
     tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
     legend: { bottom: 0, textStyle: { fontSize: 14, fontWeight: 'bold' } },
@@ -287,7 +302,7 @@ function update_top5_most_played(top5) {
   container.empty();
   container.addClass("d-flex flex-column align-items-center");
 
-  container.append("<h3 class='text-center mb-4 text-dark fw-bold'>Top 5 Most Played</h3>");
+  container.append("<h3 class='text-center mb-4 text-body fw-bold'>Top 5 Most Played</h3>");
 
   if (top5.length === 0) return;
 
@@ -314,11 +329,11 @@ function update_top5_most_played(top5) {
                 <div class="position-relative mb-2">
                     <img src="${escaped_thumb}" class="rounded-circle shadow" style="width: ${isFirst ? '120px' : '90px'}; height: ${isFirst ? '120px' : '90px'}; object-fit: cover; border: 4px solid ${color};" onerror="this.src='https://placehold.co/100?text=No+Image'">
                 </div>
-                <div class="bg-white p-2 rounded shadow-sm text-center w-100 position-relative" style="z-index: 2;">
+                <div class="bg-body-tertiary border p-2 rounded shadow-sm text-center w-100 position-relative" style="z-index: 2;">
                      <div class="fw-bold text-truncate" title="${escaped_name}">${escaped_name}</div>
                      <div class="text-muted small">${item.click_count} plays</div>
                  </div>
-                <div style="background: linear-gradient(to bottom, ${color}, white); height: ${height}; width: 80%; border-radius: 8px 8px 0 0; margin-top: -5px; z-index: 1;"></div>
+                <div style="background: linear-gradient(to bottom, ${color}, transparent); height: ${height}; width: 80%; border-radius: 8px 8px 0 0; margin-top: -5px; z-index: 1;"></div>
             </div>
         `;
     podium.append(card);
@@ -338,9 +353,9 @@ function update_top5_most_played(top5) {
                     <div class="d-flex align-items-center overflow-hidden">
                         <span class="fw-bold me-3 text-secondary" style="font-size: 1.2rem; min-width: 30px;">#${item.rank}</span>
                         <img src="${escaped_thumb}" class="rounded me-3" style="width: 50px; height: 50px; object-fit: cover;" onerror="this.src='https://placehold.co/50?text=No+Img'">
-                        <span class="text-truncate fw-bold text-dark" title="${escaped_name}">${escaped_name}</span>
+                        <span class="text-truncate fw-bold text-body" title="${escaped_name}">${escaped_name}</span>
                     </div>
-                    <span class="badge bg-dark rounded-pill p-2">${item.click_count} plays</span>
+                    <span class="badge text-bg-dark rounded-pill p-2">${item.click_count} plays</span>
                 </div>
             `;
       list.append(row);
@@ -358,20 +373,23 @@ function update_timechart(element_id, data_array, title, label_name) {
   }
 
   var chartDom = document.getElementById(element_id);
-  var myChart = echarts.init(chartDom);
+  var isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+  var myChart = echarts.init(chartDom, isDark ? 'dark' : null);
+  var textColor = isDark ? '#dee2e6' : '#303030';
   var option = {
+    backgroundColor: 'transparent',
     title: {
       text: title,
       left: 'center',
       top: 10,
-      textStyle: { color: '#303030', fontSize: 18, fontWeight: 'bold' }
+      textStyle: { color: textColor, fontSize: 18, fontWeight: 'bold' }
     },
     tooltip: { trigger: 'axis' },
     grid: { left: '3%', right: '4%', bottom: '10%', top: '20%', containLabel: true },
     xAxis: {
       type: 'category',
       data: x_axis_data,
-      axisLabel: { color: '#303030', fontSize: 10, fontWeight: 'bold', rotate: 45 }
+      axisLabel: { color: textColor, fontSize: 10, fontWeight: 'bold', rotate: 45 }
     },
     yAxis: { type: 'value', splitLine: { show: false } },
     series: [
@@ -410,19 +428,22 @@ function update_repartition_bar_chart(element_id, data, title, color_theme) {
   var y_axis = Object.values(data);
 
   var chartDom = document.getElementById(element_id);
-  var myChart = echarts.init(chartDom);
+  var isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+  var myChart = echarts.init(chartDom, isDark ? 'dark' : null);
+  var textColor = isDark ? '#dee2e6' : '#303030';
   var option = {
+    backgroundColor: 'transparent',
     title: {
       text: title,
       left: 'center',
-      textStyle: { fontSize: 18, color: '#303030', fontWeight: 'bold' }
+      textStyle: { fontSize: 18, color: textColor, fontWeight: 'bold' }
     },
     tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
     grid: { left: '3%', right: '4%', bottom: '3%', top: '15%', containLabel: true },
     xAxis: {
       type: 'category',
       data: x_axis,
-      axisLabel: { color: '#303030', fontSize: 12, fontWeight: 'bold' }
+      axisLabel: { color: textColor, fontSize: 12, fontWeight: 'bold' }
     },
     yAxis: { type: 'value', splitLine: { show: false } },
     series: [
@@ -430,7 +451,7 @@ function update_repartition_bar_chart(element_id, data, title, color_theme) {
         name: 'Count',
         type: 'bar',
         data: y_axis,
-        label: { show: true, position: 'top', color: '#303030', fontWeight: 'bold' },
+        label: { show: true, position: 'top', color: textColor, fontWeight: 'bold' },
         itemStyle: {
           borderRadius: [7, 7, 0, 0],
           color: function (params) {
@@ -483,10 +504,31 @@ $(document).ready(function () {
     data: JSON.stringify(json_to_send),
     success: function (response) {
       console.log(response);
+      cached_stats = response;
       updateStats(response);
     },
     error: function () {
       window.location.href = "../";
+    }
+  });
+
+  // Handle themechange event to re-render charts
+  window.addEventListener('themechange', function() {
+    const charts = [
+        'rated_pie_chart', 'top10_artists_chart', 'top10_genres_chart', 
+        'rating_repartition_chart', 'platforms_repartition_chart',
+        'time_inserted_chart', 'time_released_chart',
+        'crowd_level_repartition_chart', 'audio_quality_repartition_chart',
+        'artist_talking_repartition_chart'
+    ];
+    charts.forEach(id => {
+        const dom = document.getElementById(id);
+        if (dom) {
+            echarts.dispose(dom);
+        }
+    });
+    if (cached_stats) {
+      updateStats(cached_stats);
     }
   });
 

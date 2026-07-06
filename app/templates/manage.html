@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soundset - Manage</title>
+    <script src="{{ url_for('static', filename='js/theme_init.js') }}"></script>
     <link rel="icon" href="{{ url_for('static', filename='favicon.webp') }}">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
@@ -33,6 +34,10 @@
                     type="button" role="tab">Tags</button>
             </li>
         </ul>
+        <button id="theme_toggle_btn" class="btn p-2 border-0 text-body shadow-none" aria-label="Toggle theme">
+            <i class="fa-solid fa-sun fa-lg theme-icon-light"></i>
+            <i class="fa-solid fa-moon fa-lg theme-icon-dark"></i>
+        </button>
     </div>
 
     <div class="tab-content pt-2">
@@ -67,5 +72,6 @@
 <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
 <script src="{{ url_for('static', filename='js/manage.js') }}"></script>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
 
 </html>
