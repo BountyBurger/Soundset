@@ -217,3 +217,100 @@ button.p-1.accordion-button.collapsed::after {
 .dot-hidden {
    background-color: transparent !important;
 }
+
+/* Tutorial Modal Styles */
+.tutorial-content {
+   background: linear-gradient(135deg, rgba(28, 28, 35, 0.96) 0%, rgba(18, 18, 22, 0.98) 100%);
+   border: 1px solid rgba(255, 255, 255, 0.08);
+   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 45px rgba(255, 192, 0, 0.15);
+   border-radius: 24px !important;
+   overflow: hidden;
+}
+
+.tutorial-content h3 {
+   letter-spacing: -0.5px;
+}
+
+.text-light-50 {
+   color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.tutorial-icon-wrapper {
+   width: 90px;
+   height: 90px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: 0 auto;
+   transition: all 0.3s ease;
+}
+
+.welcome-icon {
+   background: rgba(255, 192, 0, 0.15);
+   border: 2px solid rgba(255, 192, 0, 0.3);
+   box-shadow: 0 0 25px rgba(255, 192, 0, 0.25);
+   animation: floatIcon 3.5s ease-in-out infinite;
+}
+
+.add-icon {
+   background: rgba(13, 202, 240, 0.15);
+   border: 2px solid rgba(13, 202, 240, 0.3);
+   box-shadow: 0 0 25px rgba(13, 202, 240, 0.25);
+   animation: floatIcon 3.5s ease-in-out infinite 0.5s;
+}
+
+.rate-icon {
+   background: rgba(25, 135, 84, 0.15);
+   border: 2px solid rgba(25, 135, 84, 0.3);
+   box-shadow: 0 0 25px rgba(25, 135, 84, 0.25);
+   animation: floatIcon 3.5s ease-in-out infinite 1s;
+}
+
+.search-icon {
+   background: rgba(220, 53, 69, 0.15);
+   border: 2px solid rgba(220, 53, 69, 0.3);
+   box-shadow: 0 0 25px rgba(220, 53, 69, 0.25);
+   animation: floatIcon 3.5s ease-in-out infinite 1.5s;
+}
+
+@keyframes floatIcon {
+   0% {
+      transform: translateY(0px);
+   }
+   50% {
+      transform: translateY(-8px);
+   }
+   100% {
+      transform: translateY(0px);
+   }
+}
+
+.tutorial-dot {
+   width: 8px;
+   height: 8px;
+   border-radius: 50%;
+   background-color: rgba(255, 255, 255, 0.25);
+   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+   cursor: pointer;
+   display: inline-block;
+}
+
+.tutorial-dot.active {
+   width: 24px;
+   border-radius: 4px;
+   background: linear-gradient(135deg, #FFC000 0%, #FF9000 100%);
+   box-shadow: 0 0 12px rgba(255, 192, 0, 0.6);
+}
+
+.tutorial-footer {
+   background: rgba(0, 0, 0, 0.2);
+}
+
+#tutorial_skip_btn {
+   transition: color 0.2s ease;
+}
+
+#tutorial_skip_btn:hover {
+   color: #fff !important;
+}

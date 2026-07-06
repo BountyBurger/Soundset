@@ -54,6 +54,13 @@ window.addEventListener("load", (event) => {
     update_artists_list();
     search();
     $("#unrated_checkbox").trigger("change");
+
+    // Show tutorial popup if it was just created
+    if (localStorage.getItem("show_tutorial") === "true") {
+        localStorage.removeItem("show_tutorial");
+        var tutorialModal = new bootstrap.Modal(document.getElementById('tutorial_modal'));
+        tutorialModal.show();
+    }
 });
 
 /* dual slider js */
@@ -403,4 +410,30 @@ $("#title_search_input").keypress(function (e) {
 
 $("#navbar-brand").on("click", function () {
     location.reload();
+});
+
+// Sync tutorial carousel indicators and buttons
+$(document).on('slid.bs.carousel', '#tutorialCarousel', function (e) {
+    var slideTo = e.to;
+    $('.tutorial-dot').removeClass('active');
+    $('.tutorial-dot[data-bs-slide-to="' + slideTo + '"]').addClass('active');
+
+    if (slideTo === 3) {
+        $('#tutorial_next_btn').text('Get Started!').removeClass('btn-soundset').addClass('btn-success');
+        $('#tutorial_skip_btn').fadeOut(200);
+    } else {
+        $('#tutorial_next_btn').text('Next').addClass('btn-soundset').removeClass('btn-success');
+        $('#tutorial_skip_btn').fadeIn(200);
+    }
+});
+
+$(document).on('click', '#tutorial_next_btn', function () {
+    var carouselEl = document.getElementById('tutorialCarousel');
+    var carousel = bootstrap.Carousel.getInstance(carouselEl) || new bootstrap.Carousel(carouselEl);
+    var activeItemIndex = $('#tutorialCarousel .carousel-item.active').index();
+    if (activeItemIndex === 3) {
+        bootstrap.Modal.getInstance(document.getElementById('tutorial_modal')).hide();
+    } else {
+        carousel.next();
+    }
 });

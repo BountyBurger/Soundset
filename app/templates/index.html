@@ -189,6 +189,81 @@
         </div>
     </div>
 
+    <!--modal tutorial-->
+    <div id="tutorial_modal" class="modal fade" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content tutorial-content">
+                <div class="modal-body p-4 text-center text-light">
+                    
+                    <div id="tutorialCarousel" class="carousel slide" data-bs-ride="false" data-bs-interval="false">
+                        <div class="carousel-inner">
+                            
+                            <!-- Step 1: Welcome -->
+                            <div class="carousel-item active">
+                                <div class="tutorial-icon-wrapper welcome-icon mb-4">
+                                    <i class="fa-solid fa-music fa-3x text-warning"></i>
+                                </div>
+                                <h3 class="fw-bold mb-3">Welcome to Soundset! 🎵</h3>
+                                <p class="text-light-50 fs-6">
+                                    Your personal music set library is ready. Let's take a quick 4-step tour to help you get the most out of your collection!
+                                </p>
+                            </div>
+
+                            <!-- Step 2: Add Sets -->
+                            <div class="carousel-item">
+                                <div class="tutorial-icon-wrapper add-icon mb-4">
+                                    <i class="fa-solid fa-circle-plus fa-3x text-info"></i>
+                                </div>
+                                <h3 class="fw-bold mb-3">Add Sets Automatically ➕</h3>
+                                <p class="text-light-50 fs-6">
+                                    Click the floating orange <strong class="text-warning">+</strong> button in the bottom right corner. Just paste a <strong>SoundCloud</strong> or <strong>YouTube</strong> URL, and we'll fetch titles, durations, and thumbnails automatically!
+                                </p>
+                            </div>
+
+                            <!-- Step 3: Rate & Tag -->
+                            <div class="carousel-item">
+                                <div class="tutorial-icon-wrapper rate-icon mb-4">
+                                    <i class="fa-solid fa-tags fa-3x text-success"></i>
+                                </div>
+                                <h3 class="fw-bold mb-3">Organize & Rate ⭐</h3>
+                                <p class="text-light-50 fs-6">
+                                    Categorize your sets with custom tags and rate their qualities like <strong>Record Quality</strong>, <strong>Crowd Level</strong>, and whether the <strong>Artist is talking</strong> to filter them perfectly later.
+                                </p>
+                            </div>
+
+                            <!-- Step 4: Search & Analyze -->
+                            <div class="carousel-item">
+                                <div class="tutorial-icon-wrapper search-icon mb-4">
+                                    <i class="fa-solid fa-chart-line fa-3x text-danger"></i>
+                                </div>
+                                <h3 class="fw-bold mb-3">Filter & Analyze 🔍</h3>
+                                <p class="text-light-50 fs-6">
+                                    Use the collapsible filter section at the top of the main screen to search by artist, quality, duration, and more. Check the <strong>Database analytics</strong> in the menu for stats and insights!
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="modal-footer tutorial-footer border-0 d-flex justify-content-between align-items-center p-3">
+                    <button type="button" id="tutorial_skip_btn" class="btn btn-link text-light-50 text-decoration-none" data-bs-dismiss="modal">Skip</button>
+                    
+                    <!-- Custom dots indicator -->
+                    <div class="tutorial-dots d-flex gap-2">
+                        <span class="tutorial-dot active" data-bs-target="#tutorialCarousel" data-bs-slide-to="0"></span>
+                        <span class="tutorial-dot" data-bs-target="#tutorialCarousel" data-bs-slide-to="1"></span>
+                        <span class="tutorial-dot" data-bs-target="#tutorialCarousel" data-bs-slide-to="2"></span>
+                        <span class="tutorial-dot" data-bs-target="#tutorialCarousel" data-bs-slide-to="3"></span>
+                    </div>
+
+                    <button type="button" id="tutorial_next_btn" class="btn btn-soundset px-4 py-2 rounded-pill fw-bold text-dark shadow-sm">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="m-3 p-2 text-light rounded-circle btn-soundset" id="btn_add_set">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" class="bi bi-plus"
             viewBox="0 0 16 16">

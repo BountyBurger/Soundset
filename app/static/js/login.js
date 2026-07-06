@@ -73,9 +73,9 @@ $(document).ready(function () {
 
     $("#create_db_btn").click(function () {
         //change the text of the button with a spinner
-        $("#load_db_btn").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
+        $("#create_db_btn").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...');
         //disable the button
-        $("#load_db_btn").prop("disabled", true);
+        $("#create_db_btn").prop("disabled", true);
 
         let name = $("#db_name_create").val();
         let password = $("#db_password_create").val();
@@ -86,10 +86,14 @@ $(document).ready(function () {
             data: JSON.stringify({ name: name, password: password }),
             contentType: "application/json",
             success: function (data) {
+                localStorage.setItem("show_tutorial", "true");
                 handle_login_success(name, data);
             },
             error: function (data) {
                 console.log(data);
+                // Reset button on error
+                $("#create_db_btn").html("Create");
+                $("#create_db_btn").prop("disabled", false);
             }
         });
     });
