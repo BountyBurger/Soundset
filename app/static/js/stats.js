@@ -101,7 +101,7 @@ function update_top10_artists(top10) {
         fontWeight: 'bold',
         color: textColor,
         formatter: function (value, index) {
-            return (reversedTop10.length - index) + ". " + value;
+          return (reversedTop10.length - index) + ". " + value;
         }
       }
     },
@@ -172,7 +172,7 @@ function update_top10_genres(top10) {
         fontWeight: 'bold',
         color: textColor,
         formatter: function (value, index) {
-            return (reversedTop10.length - index) + ". " + value;
+          return (reversedTop10.length - index) + ". " + value;
         }
       }
     },
@@ -265,9 +265,9 @@ function update_platforms_repartition(platforms_repartition) {
       label: {
         show: true,
         formatter: (p) => {
-            const val = p.value;
-            const percent = ((val / total) * 100).toFixed(0);
-            return percent > 5 ? `${percent}%` : '';
+          const val = p.value;
+          const percent = ((val / total) * 100).toFixed(0);
+          return percent > 5 ? `${percent}%` : '';
         },
         fontSize: 16,
         fontWeight: 'bold',
@@ -416,11 +416,11 @@ function update_timechart(element_id, data_array, title, label_name) {
 }
 
 function update_timechart_inserted(time_inserted) {
-    update_timechart('time_inserted_chart', time_inserted, 'Sets Inserted Over Time', 'Sets Inserted');
+  update_timechart('time_inserted_chart', time_inserted, 'Sets Inserted Over Time', 'Sets Inserted');
 }
 
 function update_timechart_released(time_released) {
-    update_timechart('time_released_chart', time_released, 'Sets Released Over Time', 'Sets Released');
+  update_timechart('time_released_chart', time_released, 'Sets Released Over Time', 'Sets Released');
 }
 
 function update_repartition_bar_chart(element_id, data, title, color_theme) {
@@ -503,7 +503,7 @@ $(document).ready(function () {
     contentType: 'application/json',
     data: JSON.stringify(json_to_send),
     success: function (response) {
-      console.log(response);
+      //console.log(response);
       cached_stats = response;
       updateStats(response);
     },
@@ -513,19 +513,19 @@ $(document).ready(function () {
   });
 
   // Handle themechange event to re-render charts
-  window.addEventListener('themechange', function() {
+  window.addEventListener('themechange', function () {
     const charts = [
-        'rated_pie_chart', 'top10_artists_chart', 'top10_genres_chart', 
-        'rating_repartition_chart', 'platforms_repartition_chart',
-        'time_inserted_chart', 'time_released_chart',
-        'crowd_level_repartition_chart', 'audio_quality_repartition_chart',
-        'artist_talking_repartition_chart'
+      'rated_pie_chart', 'top10_artists_chart', 'top10_genres_chart',
+      'rating_repartition_chart', 'platforms_repartition_chart',
+      'time_inserted_chart', 'time_released_chart',
+      'crowd_level_repartition_chart', 'audio_quality_repartition_chart',
+      'artist_talking_repartition_chart'
     ];
     charts.forEach(id => {
-        const dom = document.getElementById(id);
-        if (dom) {
-            echarts.dispose(dom);
-        }
+      const dom = document.getElementById(id);
+      if (dom) {
+        echarts.dispose(dom);
+      }
     });
     if (cached_stats) {
       updateStats(cached_stats);
@@ -533,20 +533,20 @@ $(document).ready(function () {
   });
 
   // Handle window resize for ECharts
-  window.addEventListener('resize', function() {
+  window.addEventListener('resize', function () {
     const charts = [
-        'rated_pie_chart', 'top10_artists_chart', 'top10_genres_chart', 
-        'rating_repartition_chart', 'platforms_repartition_chart',
-        'time_inserted_chart', 'time_released_chart',
-        'crowd_level_repartition_chart', 'audio_quality_repartition_chart',
-        'artist_talking_repartition_chart'
+      'rated_pie_chart', 'top10_artists_chart', 'top10_genres_chart',
+      'rating_repartition_chart', 'platforms_repartition_chart',
+      'time_inserted_chart', 'time_released_chart',
+      'crowd_level_repartition_chart', 'audio_quality_repartition_chart',
+      'artist_talking_repartition_chart'
     ];
     charts.forEach(id => {
-        const dom = document.getElementById(id);
-        if (dom) {
-            const chart = echarts.getInstanceByDom(dom);
-            if (chart) chart.resize();
-        }
+      const dom = document.getElementById(id);
+      if (dom) {
+        const chart = echarts.getInstanceByDom(dom);
+        if (chart) chart.resize();
+      }
     });
   });
 });

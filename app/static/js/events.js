@@ -240,7 +240,7 @@ $("#save_edit_set").on("click", function () {
             new_artist_list.push(artist_id.toString());
         });
         if (JSON.stringify(new_artist_list) !== JSON.stringify(previous_artist_list)) {
-            console.log("artist list changed");
+            //console.log("artist list changed");
             update_data["artists"] = new_artist_list.join(",");
         }
 
@@ -259,7 +259,7 @@ $("#save_edit_set").on("click", function () {
             new_tag_list.push(tag_id.toString());
         });
         if (JSON.stringify(new_tag_list) !== JSON.stringify(previous_tag_list)) {
-            console.log("tag list changed");
+            //console.log("tag list changed");
             update_data["tags"] = new_tag_list.join(",");
         }
 
@@ -297,7 +297,7 @@ $("#save_edit_set").on("click", function () {
                 contentType: 'application/json',
                 type: 'POST',
                 success: function (data) {
-                    console.log("UPDATE STATUS : " + data);
+                    //console.log("UPDATE STATUS : " + data);
                     update_artists_list();
                     update_tags_list();
                     search();
@@ -344,13 +344,13 @@ $("#add_set-btn").on("click", function () {
         api_data: add_data
     };
 
-    console.log("ADD JSON : " + JSON.stringify(json_to_send));
+    //console.log("ADD JSON : " + JSON.stringify(json_to_send));
     $.ajax("/api/add_set", {
         data: JSON.stringify(json_to_send),
         contentType: 'application/json',
         type: 'POST',
         success: function (data) {
-            console.log("ADD STATUS : " + data);
+            //console.log("ADD STATUS : " + data);
             $("#add_set_url").val("");
             $("#add_set").modal("hide");
             search();
@@ -389,12 +389,12 @@ $("#delete_set-btn").on("click", function () {
         contentType: 'application/json',
         type: 'POST',
         success: function (data) {
-            console.log("DELETE STATUS : " + data);
+            //console.log("DELETE STATUS : " + data);
             $("#edit_set").modal("hide");
             search();
         },
         error: function () {
-            console.log("error");
+            //console.log("error");
         }
     });
 });

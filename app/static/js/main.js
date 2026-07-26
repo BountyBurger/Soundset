@@ -109,8 +109,8 @@ function format_json_data_to_send() {
         "data_request": json_data
     };
 
-    console.log("SEARCH JSON")
-    console.log(json_final);
+    //console.log("SEARCH JSON")
+    //console.log(json_final);
     return json_final;
 }
 
@@ -129,8 +129,8 @@ function search() {
         success: function (data) {
             current_items_data = data;
             $("#loading-popup").fadeOut(200);
-            console.log("SEARCH RESULTS : ");
-            console.log(data);
+            //console.log("SEARCH RESULTS : ");
+            //console.log(data);
 
             $("#main_table").empty();
 

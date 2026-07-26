@@ -1,5 +1,5 @@
 html {
-   background-color: var(--bs-body-bg);
+   background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
 }
 
 html,
@@ -282,9 +282,11 @@ button.p-1.accordion-button.collapsed::after {
    0% {
       transform: translateY(0px);
    }
+
    50% {
       transform: translateY(-8px);
    }
+
    100% {
       transform: translateY(0px);
    }

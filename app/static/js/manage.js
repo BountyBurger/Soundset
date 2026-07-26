@@ -79,7 +79,7 @@ function update_delete_artist_btn_trigger_event() {
             contentType: 'application/json',
             data: JSON.stringify(json_to_send),
             success: function (data) {
-                console.log("artist deleted");
+                //console.log("artist deleted");
                 update_artists_list();
             },
             error: function () {
@@ -103,7 +103,7 @@ function update_delete_tag_btn_trigger_event() {
             contentType: 'application/json',
             data: JSON.stringify(json_to_send),
             success: function (data) {
-                console.log("tag deleted");
+                //console.log("tag deleted");
                 update_tags_list();
             },
             error: function () {
@@ -130,7 +130,7 @@ $("#add_artist_btn").on("click", function () {
         data: JSON.stringify(json_to_send),
         success: function (data) {
             $("#artist_input").val("");
-            console.log("artist added");
+            //console.log("artist added");
             update_artists_list();
         },
         error: function () {
@@ -153,7 +153,7 @@ $("#add_tag_btn").on("click", function () {
         data: JSON.stringify(json_to_send),
         success: function (data) {
             $("#tag_input").val("");
-            console.log("tag added");
+            //console.log("tag added");
             update_tags_list();
         },
         error: function () {

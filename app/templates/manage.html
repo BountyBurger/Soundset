@@ -16,12 +16,12 @@
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </head>
 
-<body class="bg-dark">
+<body class="bg-light">
     <datalist id="artists_datalist"></datalist>
     <datalist id="tags_datalist"></datalist>
 
     <div class="d-flex justify-content-between bg-light p-2  align-items-center">
-        <a href="{{ url_for('index') }}" class="p-2 me-3 ms-2">
+        <a href="{{ url_for('index') }}" class="p-2 me-3 ms-2 text-body">
             <i class="fa-solid fa-arrow-left fa-xl"></i>
         </a>
         <ul role="tablist" class="nav nav-pills nav-fill w-100">

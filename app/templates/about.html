@@ -16,12 +16,12 @@
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </head>
 
-<body>
-    <div class="d-flex justify-content-between bg-dark p-2  align-items-center">
-        <a href="{{ url_for('index') }}" class="p-2 me-3 ms-2">
+<body class="bg-light">
+    <div class="d-flex justify-content-between bg-light p-2  align-items-center">
+        <a href="{{ url_for('index') }}" class="p-2 me-3 ms-2 text-body">
             <i class="fa-solid fa-arrow-left fa-xl"></i>
         </a>
-        <button id="theme_toggle_btn" class="btn p-2 border-0 text-light shadow-none" aria-label="Toggle theme">
+        <button id="theme_toggle_btn" class="btn p-2 border-0 text-body shadow-none" aria-label="Toggle theme">
             <i class="fa-solid fa-sun fa-lg theme-icon-light"></i>
             <i class="fa-solid fa-moon fa-lg theme-icon-dark"></i>
         </button>
