@@ -363,3 +363,22 @@ button.p-1.accordion-button.collapsed::after {
 [data-bs-theme="dark"] .border-dark {
    border-color: var(--bs-border-color) !important;
 }
+
+/* Custom <set> element & list-group-item styling for dark mode */
+set {
+   display: block;
+}
+
+[data-bs-theme="dark"] set,
+[data-bs-theme="dark"] .list-group-item {
+   background-color: var(--bs-secondary-bg) !important;
+   border-color: var(--bs-border-color-translucent) !important;
+   color: var(--bs-body-color) !important;
+}
+
+[data-bs-theme="dark"] set .accordion-item,
+[data-bs-theme="dark"] set .accordion-button,
+[data-bs-theme="dark"] set .accordion-body {
+   background-color: transparent !important;
+   color: var(--bs-body-color) !important;
+}
