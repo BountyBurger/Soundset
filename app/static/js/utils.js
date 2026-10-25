@@ -9,6 +9,19 @@ function escapeHtml(str) {
         .replace(/'/g, '&#39;');
 }
 
+function show_toast(message, type) {
+    type = type || "success";
+    var is_danger = type === "danger";
+
+    $("#toast_message").text(message);
+    $("#toast_icon").html('<i class="' + (is_danger ? "fa-solid fa-trash-can" : "fa-solid fa-circle-check") + '"></i>');
+    $("#toast_notification")
+        .removeClass("toast-success toast-danger")
+        .addClass(is_danger ? "toast-danger" : "toast-success");
+
+    bootstrap.Toast.getOrCreateInstance(document.getElementById("toast_notification"), { delay: 3000 }).show();
+}
+
 var timeoutId = 0;
 var startX, startY;
 var isScrolling = false;

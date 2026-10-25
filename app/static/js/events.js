@@ -353,6 +353,7 @@ $("#add_set-btn").on("click", function () {
             //console.log("ADD STATUS : " + data);
             $("#add_set_url").val("");
             $("#add_set").modal("hide");
+            show_toast("Set added to your library");
             search();
         },
         error: function (data) {
@@ -391,6 +392,7 @@ $("#delete_set-btn").on("click", function () {
         success: function (data) {
             //console.log("DELETE STATUS : " + data);
             $("#edit_set").modal("hide");
+            show_toast("Set deleted from your library", "danger");
             search();
         },
         error: function () {

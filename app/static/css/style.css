@@ -116,6 +116,48 @@ input[type=range] {
    background-color: rgba(0, 0, 0, 0.8);
 }
 
+/* Bottom confirmation popup */
+#toast_container {
+   z-index: 10000;
+   bottom: 1rem;
+   max-width: 100%;
+   pointer-events: none;
+}
+
+#toast_notification {
+   width: fit-content;
+   max-width: min(420px, calc(100vw - 2rem));
+   margin: 0 auto;
+   border-radius: 16px;
+   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+   backdrop-filter: blur(10px);
+   pointer-events: auto;
+}
+
+#toast_notification .toast-icon {
+   flex-shrink: 0;
+}
+
+#toast_message {
+   min-width: 0;
+   overflow-wrap: anywhere;
+}
+
+#toast_notification.toast-success .toast-icon {
+   color: var(--bs-success);
+}
+
+#toast_notification.toast-danger .toast-icon {
+   color: var(--bs-danger);
+}
+
+/* Keep the popup clear of the floating "+" button on small screens */
+@media (max-width: 575.98px) {
+   #toast_container {
+      bottom: 4.5rem;
+   }
+}
+
 .hidden {
    display: none;
 }

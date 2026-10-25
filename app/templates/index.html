@@ -279,6 +279,19 @@
         </div>
     </div>
 
+    <!--bottom confirmation popup-->
+    <div id="toast_container" class="toast-container position-fixed start-50 translate-middle-x p-3">
+        <div id="toast_notification" class="toast fade" role="status" aria-live="polite" aria-atomic="true">
+            <div class="d-flex align-items-center">
+                <div class="toast-body d-flex align-items-center gap-2">
+                    <span id="toast_icon" class="toast-icon fs-5"></span>
+                    <span id="toast_message"></span>
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
     <div class="collapse bg-light" id="filters_section">
         <nav class="navbar">
             <div class="container-fluid">
